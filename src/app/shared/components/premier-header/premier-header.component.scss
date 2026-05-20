@@ -1,0 +1,98 @@
+/* ===========================
+   TOP NAV (CABECERA PREMIER)
+   =========================== */
+
+.top-nav {
+  background-color: #37003c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  /* Animación de entrada */
+  animation: fadeDown 0.6s ease-out both;
+}
+
+/* Contenedor de escudos */
+.club-sites {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Escudos individuales */
+.club-sites img {
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.9);
+
+  /* Animación base */
+  animation: fadeUpScale 0.5s ease-out forwards;
+
+  /* Hover elegante */
+  transition: transform 0.3s ease;
+}
+
+.club-sites img:hover {
+  transform: scale(1.4);
+  cursor: pointer;
+}
+
+/* ===========================
+   STAGGER (ENTRADA ESCALONADA)
+   =========================== */
+
+/* Retrasos progresivos */
+.club-sites img:nth-child(1)  { animation-delay: 0.1s; }
+.club-sites img:nth-child(2)  { animation-delay: 0.15s; }
+.club-sites img:nth-child(3)  { animation-delay: 0.2s; }
+.club-sites img:nth-child(4)  { animation-delay: 0.25s; }
+.club-sites img:nth-child(5)  { animation-delay: 0.3s; }
+.club-sites img:nth-child(6)  { animation-delay: 0.35s; }
+.club-sites img:nth-child(7)  { animation-delay: 0.4s; }
+.club-sites img:nth-child(8)  { animation-delay: 0.45s; }
+.club-sites img:nth-child(9)  { animation-delay: 0.5s; }
+.club-sites img:nth-child(10) { animation-delay: 0.55s; }
+.club-sites img:nth-child(11) { animation-delay: 0.6s; }
+.club-sites img:nth-child(12) { animation-delay: 0.65s; }
+.club-sites img:nth-child(13) { animation-delay: 0.7s; }
+.club-sites img:nth-child(14) { animation-delay: 0.75s; }
+.club-sites img:nth-child(15) { animation-delay: 0.8s; }
+.club-sites img:nth-child(16) { animation-delay: 0.85s; }
+.club-sites img:nth-child(17) { animation-delay: 0.9s; }
+.club-sites img:nth-child(18) { animation-delay: 0.95s; }
+.club-sites img:nth-child(19) { animation-delay: 1s; }
+.club-sites img:nth-child(20) { animation-delay: 1.05s; }
+
+/* ===========================
+   KEYFRAMES (REUTILIZABLES)
+   =========================== */
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeUpScale {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

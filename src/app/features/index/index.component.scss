@@ -1,0 +1,362 @@
+/* Fuente Premier League */
+@font-face {
+  font-family: "premier";
+  src: url("/assets/font/premierLeague.ttf") format("truetype");
+}
+
+/* Host del componente (equivalente al body en HTML clásico) */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "premier", sans-serif;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(90deg, #00f2c1, #00bce9);
+}
+
+/* ===========================
+   TOP NAV (cabecera premier)
+   =========================== */
+
+.top-nav {
+  background-color: #37003c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.club-sites {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.4);
+      cursor: pointer;
+    }
+  }
+}
+
+/* ===========================
+   NAV PRINCIPAL
+   =========================== */
+
+.main-nav {
+  background-color: #37003c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 50px;
+  border-top: none; // ❌ quitamos línea divisoria
+  margin-top: 60px; // ✅ sigue compensando la top-nav
+  position: relative;
+  z-index: 999;
+  flex-wrap: wrap;
+}
+
+.top-nav + .main-nav {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.main-nav-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .premier-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  a,
+  > div {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #4e1060;
+    border: 1px solid #555;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    z-index: 1001;
+    min-width: 150px;
+
+    a {
+      color: white;
+      padding: 5px 10px;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #602774;
+      }
+
+      &[aria-current="page"] {
+        font-weight: bold;
+        background-color: #804199;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  &:hover .submenu,
+  &.active .submenu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.more-than-game {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* ===========================
+   HERO SECTION
+   =========================== */
+
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: center; // ✅ centramos el conjunto
+  gap: 60px; // ✅ separación controlada
+  padding-top: 80px;
+  flex-wrap: wrap;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.hero-image {
+  max-width: 45%; // ✅ un poco menos agresivo
+  object-fit: contain;
+}
+
+.fantasy-logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+
+  h1 {
+    color: #37003c;
+    font-size: 36px;
+    font-weight: bold;
+  }
+}
+
+/* Hero nav */
+.hero-nav {
+  
+display: inline-flex;      // ✅ ya no ocupa todo el ancho
+  background-color: white;
+  border-radius: 30px;       // ✅ más elegante
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 4px;              // ✅ reduce tamaño visual
+
+
+  a {
+    
+ padding: 8px 16px;         // ✅ menos “tocho”
+  text-decoration: none;
+  color: #37003c;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+
+
+    &.active,
+    &:hover {
+      background-color: #00d1aa;
+      color: white;
+      transition: 0.3s;
+    }
+  }
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+
+.site-footer {
+  background-color: #37003c;
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  border-top: 1px solid #333;
+  margin-top: auto;
+
+  .footer-links {
+    margin-top: 10px;
+
+    a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+
+      &:hover {
+        color: #00a651;
+      }
+    }
+  }
+}
+
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: none; }
+}
+
+.fade-in { animation: fadeUp 0.8s ease both; }
+.slide-in-left { animation: slideLeft 0.8s ease both; }
+.slide-in-right { animation: slideRight 0.8s ease both; }
+
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+
+@media (max-width: 767px) {
+  .top-nav,
+  .main-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+
+  .main-nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-section {
+    padding-top: 120px;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .fantasy-logo {
+    flex-direction: column;
+
+    img {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  .hero-nav {
+    flex-direction: column;
+    width: 100%;
+
+    a {
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      padding: 15px 10px;
+    }
+  }
+
+  .hero-image {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .club-sites img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .fantasy-logo h1 {
+    font-size: 28px;
+  }
+
+  .hero-nav a {
+    font-size: 14px;
+  }
+
+  .site-footer {
+    font-size: 12px;
+    padding: 15px 0;
+  }
+}

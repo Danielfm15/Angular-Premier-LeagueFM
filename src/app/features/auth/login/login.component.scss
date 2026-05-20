@@ -1,0 +1,167 @@
+/* Fuente personalizada */
+@font-face {
+  font-family: "premier";
+  src: url("/assets/font/premierLeague.ttf") format("truetype");
+}
+
+/* Reset y fuente global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "premier", sans-serif;
+}
+
+/* Estilo general del body con imagen de fondo */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background-image: url("/assets/images/media/fondoLogin.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+/* Contenedor principal del login */
+.login-container {
+  width: 400px;
+  padding: 30px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-text {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.input-field {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: white;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #3949ab;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #303f9f;
+  transform: scale(1.02);
+}
+
+.divider {
+  text-align: center;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  position: relative;
+}
+
+.premier-logo {
+  height: 70px;
+  width: 70px;
+}
+
+.register-prompt,
+.back-to-login-prompt {
+  text-align: center;
+  font-size: 14px;
+}
+
+.register-prompt a,
+.back-to-login-prompt a {
+  color: #4fc3f7;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.register-prompt a:hover,
+.back-to-login-prompt a:hover {
+  color: #81d4fa;
+  transform: scale(1.05);
+}
+
+/* Caja de error (equivalente visual a tu creación dinámica) */
+.error-box {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+  background-color: #ffe6e6;
+  border: 1px solid red;
+  border-radius: 8px;
+  padding: 10px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container { width: 90%; padding: 25px; }
+  .logo-text { font-size: 28px; }
+  .input-field, .login-button { padding: 12px 18px; font-size: 14px; }
+  .premier-logo { height: 60px; width: 60px; }
+}
+
+@media (max-width: 480px) {
+  .login-container { width: 95%; padding: 20px; border-radius: 15px; }
+  .logo-text { font-size: 24px; }
+  .input-field, .login-button { padding: 10px 15px; font-size: 14px; }
+  .premier-logo { height: 50px; width: 50px; }
+}

@@ -1,0 +1,19 @@
+<header class="top-nav" role="banner" aria-label="Cabecera con logos de equipos de la Premier League">
+  <nav class="club-sites" aria-label="Enlaces a clubes de la Premier League">
+    <a
+      *ngFor="let club of clubs"
+      [href]="club.url"
+      target="_blank"
+      rel="noopener noreferrer"
+      [attr.aria-label]="'Sitio oficial del ' + club.nombre"
+    >
+      <img [src]="'/assets/images/escudos/' + club.img" [alt]="'Logo del ' + club.nombre" />
+    </a>
+  </nav>
+
+  <!-- Botón de sesión: (temporal, hasta JWT/guard) -->
+  <a *ngIf="isLoggedIn()" href="#" (click)="$event.preventDefault(); logout()"
+     style="color:white;font-weight:bold;text-decoration:none;">
+    Cerrar sesión
+  </a>
+</header>

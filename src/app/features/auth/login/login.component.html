@@ -1,0 +1,101 @@
+<div class="login-container">
+  <div class="logo">
+    <div class="logo-text">PREMIER LEAGUE MASTER</div>
+  </div>
+
+  <!-- FORM -->
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="!showSuccess()">
+    <input
+      class="input-field"
+      placeholder="Nombre de usuario"
+      type="text"
+      aria-label="Nombre de usuario"
+      formControlName="nombre"
+      *ngIf="isRegisterMode()"
+    />
+
+    <input
+      class="input-field"
+      placeholder="Correo electrónico"
+      type="email"
+      aria-label="Correo electrónico"
+      formControlName="email"
+    />
+
+    <div class="password-container">
+      <input
+        class="input-field"
+        [type]="showPassword() ? 'text' : 'password'"
+        placeholder="Contraseña"
+        aria-label="Contraseña"
+        formControlName="contrasena"
+      />
+
+      <span
+        class="password-toggle"
+        role="button"
+        tabindex="0"
+        (click)="togglePassword()"
+      >
+        <i
+          class="far"
+          [ngClass]="showPassword() ? 'fa-eye-slash' : 'fa-eye'"
+          aria-hidden="true"
+        ></i>
+      </span>
+    </div>
+
+    <button class="login-button" type="submit" [disabled]="loading()">
+      {{
+        isRegisterMode()
+          ? loading()
+            ? "Registrando..."
+            : "Registrarse"
+          : loading()
+            ? "Iniciando sesión..."
+            : "Iniciar sesión"
+      }}
+    </button>
+
+    <p id="errorMessage" *ngIf="errorMsg()" class="error-box">
+      {{ errorMsg() }}
+    </p>
+  </form>
+
+  <!-- Logo (en Angular lo convertimos en navegación interna más adelante; de momento lo dejamos como imagen) -->
+  <div class="divider">
+    <a routerLink="/index">
+      <img
+        class="premier-logo"
+        src="/assets/images/logoTFG.png"
+        alt="Logo de la Premier League"
+      />
+    </a>
+  </div>
+
+  <!-- Cambiar de modo -->
+  <div class="register-prompt" *ngIf="!isRegisterMode() && !showSuccess()">
+    ¿No tienes una cuenta?
+    <a href="#" (click)="$event.preventDefault(); toggleRegisterMode(true)"
+      >Regístrate</a
+    >
+  </div>
+
+  <div class="back-to-login-prompt" *ngIf="isRegisterMode() && !showSuccess()">
+    <a href="#" (click)="$event.preventDefault(); toggleRegisterMode(false)"
+      >Volver al inicio de sesión</a
+    >
+  </div>
+
+  <!-- Mensaje de éxito -->
+  <div id="successMessage" *ngIf="showSuccess()">
+    <p>✅ Registro exitoso. ¡Bienvenido!</p>
+    <button
+      class="login-button"
+      style="margin-top: 10px"
+      (click)="toggleRegisterMode(false)"
+    >
+      Accede a la app
+    </button>
+  </div>
+</div>
