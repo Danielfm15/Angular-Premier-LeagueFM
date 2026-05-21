@@ -40,6 +40,9 @@
   flex-wrap: wrap;
 
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+
+animation: navStaggerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+
 }
 
 .main-nav-links {
@@ -47,6 +50,27 @@
   gap: 22px;
   flex-wrap: wrap;
   align-items: center;
+}
+
+/* Entrada progresiva de los elementos del menú (logo + dropdowns) */
+.main-nav-links > * {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: navStaggerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Escalonado (ajusta el número de items si tienes más/menos) */
+.main-nav-links > *:nth-child(1) { animation-delay: 0.08s; } /* logo */
+.main-nav-links > *:nth-child(2) { animation-delay: 0.14s; } /* dropdown 1 */
+.main-nav-links > *:nth-child(3) { animation-delay: 0.20s; } /* dropdown 2 */
+.main-nav-links > *:nth-child(4) { animation-delay: 0.26s; } /* dropdown 3 */
+
+/* Lema con un pelín más de delay */
+.more-than-game {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: navStaggerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.34s;
 }
 
 .main-nav-links .premier-logo {
@@ -239,6 +263,36 @@
   padding: 0 8px;
 }
 
+@keyframes mainNavEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navStaggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-nav,
+  .main-nav-links > *,
+  .more-than-game {
+    animation: none !important;
+  }
+}
+
 /* ===========================
    RESPONSIVE (<= 767px)
    =========================== */
@@ -336,6 +390,8 @@
     padding: 8px 0 2px;
   }
 }
+
+
 
 /* ===========================
    RESPONSIVE (<= 480px)

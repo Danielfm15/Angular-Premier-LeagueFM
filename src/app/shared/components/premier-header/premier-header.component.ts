@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthStore } from '../../../core/services/auth.store';
 
 type Club = { id: string; nombre: string; url: string; img: string };
@@ -8,7 +8,7 @@ type Club = { id: string; nombre: string; url: string; img: string };
 @Component({
   selector: 'app-premier-header',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './premier-header.component.html',
   styleUrls: ['./premier-header.component.scss'],
 })
