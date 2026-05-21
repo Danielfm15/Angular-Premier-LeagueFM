@@ -15,7 +15,6 @@ import { PremierHeaderComponent } from '../../../shared/components/premier-heade
 export class ContactoComponent {
   private fb = inject(FormBuilder);
 
-  // Modal de éxito (equivalente al modal dinámico del JS original) [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptContacto.js)
   showSuccess = signal(false);
 
   // Para _next: volver a /contacto tras FormSubmit (SPA)
@@ -32,7 +31,7 @@ export class ContactoComponent {
     return 300 - msg.length;
   });
 
-  // Mantener el comportamiento “cortar a 300” del JS legacy [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptContacto.js)
+  // Mantener el comportamiento “cortar a 300” del JS legacy
   onMensajeInput() {
     const ctrl = this.form.controls.mensaje;
     const v = ctrl.value ?? '';
@@ -49,13 +48,13 @@ export class ContactoComponent {
 
     this.showSuccess.set(true);
 
-    // Mostramos el modal unos instantes antes de enviar (como en tu JS) [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptContacto.js)
+    // Mostramos el modal unos instantes antes de enviar
     setTimeout(() => {
-      // Envío REAL al endpoint (mantiene tu action POST) [1](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/contacto.html)
+      // Envío REAL al endpoint
       formEl.submit();
     }, 700);
 
-    // Por si el navegador vuelve a esta SPA, ocultamos tras 8s (igual que antes) [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptContacto.js)
+    // Por si el navegador vuelve a esta SPA, ocultamos tras 8s
     setTimeout(() => {
       this.showSuccess.set(false);
     }, 8000);
