@@ -75,6 +75,14 @@
   font-style: italic;
 }
 
+.separado {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
 /* Responsive */
 @media (max-width: 767px) {
   .content {

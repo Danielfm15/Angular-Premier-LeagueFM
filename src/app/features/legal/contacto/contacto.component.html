@@ -1,0 +1,73 @@
+<app-premier-header></app-premier-header>
+<app-main-nav></app-main-nav>
+
+<div class="content">
+  <h1>Contacto</h1>
+
+  <p>
+    ¿Tienes preguntas, comentarios o sugerencias? Nos encantaría saber de ti.
+    Puedes comunicarte con el equipo de <strong>Premier League Master</strong>
+    a través del siguiente formulario.
+  </p>
+
+  <!-- Modal de éxito (Angular) -->
+  <div class="success-modal" *ngIf="showSuccess()">
+    ✅ ¡Mensaje enviado con éxito! Vas a ser redirigido…
+  </div>
+
+  <!-- Importante: mantenemos action FormSubmit del original [1](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/contacto.html) -->
+  <form
+    class="contact-form"
+    [formGroup]="form"
+    #formEl
+    action="https://formsubmit.co/soporteplmaster@gmail.com"
+    method="POST"
+    (ngSubmit)="onSubmit(formEl)"
+  >
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" type="text" name="nombre" formControlName="nombre" />
+    <small class="error" *ngIf="hasError('nombre')">
+      ❗Introduce un nombre válido (mínimo 2 caracteres).
+    </small>
+
+    <label for="correo">Correo electrónico:</label>
+    <input id="correo" type="email" name="correo" formControlName="correo" />
+    <small class="error" *ngIf="hasError('correo')">
+      ❗Introduce un correo electrónico válido.
+    </small>
+
+    <label for="mensaje">Mensaje:</label>
+    <textarea
+      id="mensaje"
+      name="mensaje"
+      rows="5"
+      maxlength="300"
+      formControlName="mensaje"
+      (input)="onMensajeInput()"
+    ></textarea>
+
+    <small class="counter">Caracteres restantes: {{ remaining() }}</small>
+    <small class="error" *ngIf="hasError('mensaje')">
+      ❗El mensaje es obligatorio y no puede exceder 300 caracteres.
+    </small>
+
+    <!-- Campos ocultos FormSubmit (mismo comportamiento) [1](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/contacto.html) -->
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_next" [value]="nextUrl" />
+
+    <button type="submit">Enviar mensaje</button>
+  </form>
+
+  <p>
+    También puedes escribirnos directamente a:
+    <a
+      href="https://mail.google.com/mail/?view=cm&to=soporteplmaster@gmail.com"
+      target="_blank"
+      rel="noopener"
+    >
+      soporteplmaster&#64;gmail.com
+    </a>
+  </p>
+</div>
+
+<app-footer></app-footer>

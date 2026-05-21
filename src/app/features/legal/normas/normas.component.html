@@ -32,33 +32,208 @@
     </p>
   </section>
 
-  <section>
-    <h2>4. Sistema de Puntuación</h2>
+ <section>
+        <h2>4. Sistema de Puntuación</h2>
+        <p>
+          El rendimiento del equipo se basa en estadísticas reales. La
+          puntuación se actualiza automáticamente tras cada jornada. Se aplican
+          las siguientes tablas:
+        </p>
 
-    <h3>Tabla 1. Partidos Jugados</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Parámetro</th>
-          <th>Condición</th>
-          <th>Puntos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Partido no jugado</td><td>0 minutos</td><td>0</td></tr>
-        <tr><td>Partido jugado</td><td>&lt; 60 minutos</td><td>1</td></tr>
-        <tr><td>Partido jugado</td><td>&gt; 60 minutos</td><td>2</td></tr>
-      </tbody>
-    </table>
+        <h3>Tabla 1. Partidos Jugados</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Condición</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Partido no jugado</td>
+              <td>0 minutos</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Partido jugado</td>
+              <td>&lt; 60 minutos</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Partido jugado</td>
+              <td>&gt; 60 minutos</td>
+              <td>2</td>
+            </tr>
+          </tbody>
+        </table>
 
-    <p>
-      <em>
-        En las estadísticas donde se indica la posición, la puntuación varía según
-        la demarcación. Si no se especifica, la puntuación es igual para todas las
-        posiciones.
-      </em>
-    </p>
-  </section>
+        <h3>Tabla 2. Estadísticas Generales</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Condición</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gol</td>
+              <td>Portero/Defensa</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Gol</td>
+              <td>Centrocampista</td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>Gol</td>
+              <td>Delantero</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td>Asistencia</td>
+              <td>Pase que provoca gol</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>Centro</td>
+              <td>Cada 2 centros</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Parada</td>
+              <td>Cada 2 paradas</td>
+              <td>1</td>
+            </tr>
+            <tr></tr>
+            <tr>
+              <td>Goles recibidos (cada 2 goles)</td>
+              <td>
+                <div class="separado">Portero / Defensa</div>
+                <div>Centrocampista / Delantero</div>
+              </td>
+              <td>
+                <div class="separado">-2</div>
+                <div>-1</div>
+              </td>
+            </tr>
+            <tr>
+              <td>Tiro a puerta</td>
+              <td>Cada 2 remates</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Tabla 3. Bonus Estadístico</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Condición</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Penalti provocado</td>
+              <td>Cada penalti</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>Balones recuperados</td>
+              <td>Cada 5</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Regates</td>
+              <td>Cada 3</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Despejes</td>
+              <td>Cada 3</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>
+                Portería imbatida <br>(Goles en contra 0 habiendo jugado &gt;60 min)
+              </td>
+              <td>
+                <div class="separado">Portero</div>
+                <div class="separado">Defensa</div>
+                <div class="separado">Centrocampista</div>
+                <div>Delantero</div>
+              </td>
+              <td>
+                <div class="separado">4</div>
+                <div class="separado">3</div>
+                <div class="separado">2</div>
+                <div>1</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Tabla 4. Penalizaciones</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Condición</th>
+              <th>Puntos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tarjeta amarilla</td>
+              <td>Cada una</td>
+              <td>-1</td>
+            </tr>
+            <tr>
+              <td>Tarjeta roja</td>
+              <td>Cada una</td>
+              <td>-2</td>
+            </tr>
+            <tr>
+              <td>Penalti cometido</td>
+              <td>Cada uno</td>
+              <td>-2</td>
+            </tr>
+            <tr>
+              <td>Balones perdidos</td>
+              <td>Portero/Defensa (cada 8)</td>
+              <td>-1</td>
+            </tr>
+            <tr>
+              <td>Balones perdidos</td>
+              <td>Centrocampista (cada 10)</td>
+              <td>-1</td>
+            </tr>
+            <tr>
+              <td>Balones perdidos</td>
+              <td>Delantero (cada 12)</td>
+              <td>-1</td>
+            </tr>
+            <tr>
+              <td>Autogol</td>
+              <td>Cada uno</td>
+              <td>-2</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          <em
+            >En las estadísticas donde se indica la posición, la puntuación
+            varía según la demarcación. Si no se especifica, la puntuación es
+            igual para todas las posiciones.</em
+          >
+        </p>
+      </section>
 
   <section>
     <h2>5. Clasificaciones y Estadísticas</h2>
