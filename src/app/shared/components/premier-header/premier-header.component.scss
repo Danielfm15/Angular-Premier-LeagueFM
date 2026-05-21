@@ -8,48 +8,67 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 16px;
   height: 60px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 
-  /* Animación de entrada */
   animation: fadeDown 0.6s ease-out both;
 }
 
-/* Contenedor de escudos */
+/* ===========================
+   CONTENEDOR DE ESCUDOS
+   =========================== */
+
 .club-sites {
   display: flex;
   align-items: center;
   gap: 6px;
-}
 
-/* Escudos individuales */
-.club-sites img {
-  width: 30px;
-  height: 30px;
-  opacity: 0;
-  transform: translateY(-10px) scale(0.9);
+  /* ✅ SIN SCROLL pero permite crecer */
+  overflow-x: hidden;
+  overflow-y: visible;
 
-  /* Animación base */
-  animation: fadeUpScale 0.5s ease-out forwards;
-
-  /* Hover elegante */
-  transition: transform 0.3s ease;
-}
-
-.club-sites img:hover {
-  transform: scale(1.4);
-  cursor: pointer;
+  flex-wrap: nowrap;
 }
 
 /* ===========================
-   STAGGER (ENTRADA ESCALONADA)
+   ESCUDOS (BASE)
    =========================== */
 
-/* Retrasos progresivos */
+.club-sites img {
+  width: 26px;
+  height: 26px;
+
+  opacity: 0;
+  transform: translateY(-8px) scale(0.9);
+
+  animation: fadeUpScale 0.5s ease-out forwards;
+
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.25s ease;
+
+  transform-origin: center;
+  will-change: transform;
+
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* ✅ HOVER REAL (AHORA SÍ SE VE) */
+.club-sites img:hover {
+  transform: scale(1.45);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* ===========================
+   STAGGER
+   =========================== */
+
 .club-sites img:nth-child(1)  { animation-delay: 0.1s; }
 .club-sites img:nth-child(2)  { animation-delay: 0.15s; }
 .club-sites img:nth-child(3)  { animation-delay: 0.2s; }
@@ -72,7 +91,70 @@
 .club-sites img:nth-child(20) { animation-delay: 1.05s; }
 
 /* ===========================
-   KEYFRAMES (REUTILIZABLES)
+   RESPONSIVE (<= 1024px)
+   =========================== */
+@media (max-width: 1024px) {
+  .club-sites {
+    gap: 5px;
+  }
+
+  .club-sites img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .club-sites img:hover {
+    transform: scale(1.35);
+  }
+}
+
+/* ===========================
+   RESPONSIVE (<= 767px)
+   =========================== */
+@media (max-width: 767px) {
+  .top-nav {
+    padding: 0 10px;
+    height: 56px;
+  }
+
+  .club-sites {
+    gap: 4px;
+  }
+
+  .club-sites img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .club-sites img:hover {
+    transform: scale(1.25);
+  }
+}
+
+/* ===========================
+   RESPONSIVE (<= 480px)
+   =========================== */
+@media (max-width: 480px) {
+  .top-nav {
+    height: 52px;
+  }
+
+  .club-sites {
+    gap: 3px;
+  }
+
+  .club-sites img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .club-sites img:hover {
+    transform: scale(1.15);
+  }
+}
+
+/* ===========================
+   KEYFRAMES
    =========================== */
 
 @keyframes fadeDown {
@@ -89,7 +171,7 @@
 @keyframes fadeUpScale {
   from {
     opacity: 0;
-    transform: translateY(-10px) scale(0.9);
+    transform: translateY(-8px) scale(0.9);
   }
   to {
     opacity: 1;
