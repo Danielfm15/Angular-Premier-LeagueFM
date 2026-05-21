@@ -1,45 +1,5 @@
 <app-premier-header></app-premier-header>
-
-<nav class="main-nav" role="navigation">
-  <div class="main-nav-links">
-    <img
-      class="premier-logo fade-in"
-      src="/assets/images/logoTFG.png"
-      alt="Premier League Master"
-    />
-
-    <div class="dropdown" tabindex="0">
-      <span>Premier League <i class="fas fa-chevron-down"></i></span>
-      <div class="submenu">
-        <a routerLink="/calendario">Calendario</a>
-        <a routerLink="/clasificacion">Clasificación</a>
-      </div>
-    </div>
-
-    <div class="dropdown" tabindex="0">
-      <span>Acerca de <i class="fas fa-chevron-down"></i></span>
-      <div class="submenu">
-        <a routerLink="/politicas">Política</a>
-        <a routerLink="/normas">Normas</a>
-        <a routerLink="/avisolegal">Aviso Legal</a>
-        <a routerLink="/contacto">Contacto</a>
-      </div>
-    </div>
-
-    <div class="dropdown" tabindex="0">
-      <span>Premier League Master <i class="fas fa-chevron-down"></i></span>
-      <div class="submenu">
-        <a routerLink="/index" aria-current="page">Inicio</a>
-
-        <!-- 🔒 RUTAS PRIVADAS (guard se encarga) -->
-        <a routerLink="/ligas">Ligas</a>
-        <a routerLink="/mercado">Mercado</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="more-than-game">Más que un juego</div>
-</nav>
+<app-main-nav></app-main-nav>
 
 <main class="main-content">
   <section class="hero-section">
@@ -73,12 +33,4 @@
   </section>
 </main>
 
-<footer class="site-footer fade-in">
-  <p>© 2025 Premier League Master</p>
-  <nav class="footer-links">
-    <a routerLink="/politicas">Privacidad</a>
-    <a routerLink="/normas">Normas</a>
-    <a routerLink="/avisolegal">Aviso Legal</a>
-    <a routerLink="/contacto">Contacto</a>
-  </nav>
-</footer>
+<app-footer></app-footer>

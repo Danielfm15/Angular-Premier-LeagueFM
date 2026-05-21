@@ -30,141 +30,6 @@
 }
 
 /* ===========================
-   TOP NAV (cabecera premier)
-   =========================== */
-
-.top-nav {
-  background-color: #37003c;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 60px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.club-sites {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  img {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.4);
-      cursor: pointer;
-    }
-  }
-}
-
-/* ===========================
-   NAV PRINCIPAL
-   =========================== */
-
-.main-nav {
-  background-color: #37003c;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  height: 50px;
-  border-top: none; // ❌ quitamos línea divisoria
-  margin-top: 60px; // ✅ sigue compensando la top-nav
-  position: relative;
-  z-index: 999;
-  flex-wrap: wrap;
-}
-
-.top-nav + .main-nav {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.main-nav-links {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-
-  .premier-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  a,
-  > div {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-  }
-}
-
-/* Dropdown */
-.dropdown {
-  position: relative;
-
-  .submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #4e1060;
-    border: 1px solid #555;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(10px);
-    pointer-events: none;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
-    z-index: 1001;
-    min-width: 150px;
-
-    a {
-      color: white;
-      padding: 5px 10px;
-      white-space: nowrap;
-
-      &:hover {
-        background-color: #602774;
-      }
-
-      &[aria-current="page"] {
-        font-weight: bold;
-        background-color: #804199;
-        border-radius: 4px;
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-      }
-    }
-  }
-
-  &:hover .submenu,
-  &.active .submenu {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-}
-
-.more-than-game {
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-}
-
-/* ===========================
    HERO SECTION
    =========================== */
 
@@ -235,35 +100,6 @@ display: inline-flex;      // ✅ ya no ocupa todo el ancho
     }
   }
 }
-
-/* ===========================
-   FOOTER
-   =========================== */
-
-.site-footer {
-  background-color: #37003c;
-  color: #ccc;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
-  border-top: 1px solid #333;
-  margin-top: auto;
-
-  .footer-links {
-    margin-top: 10px;
-
-    a {
-      color: #fff;
-      margin: 0 10px;
-      text-decoration: none;
-
-      &:hover {
-        color: #00a651;
-      }
-    }
-  }
-}
-
 
 /* ================= ANIMATIONS ================= */
 
@@ -353,10 +189,5 @@ display: inline-flex;      // ✅ ya no ocupa todo el ancho
 
   .hero-nav a {
     font-size: 14px;
-  }
-
-  .site-footer {
-    font-size: 12px;
-    padding: 15px 0;
   }
 }

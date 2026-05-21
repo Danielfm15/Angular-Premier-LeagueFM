@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PremierHeaderComponent } from '../../shared/components/premier-header/premier-header.component';
 import { AuthStore } from '../../core/services/auth.store';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { MainNavComponent } from '../../shared/components/main-nav/main-nav.component';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [CommonModule, RouterLink, PremierHeaderComponent],
+  imports: [CommonModule, RouterLink, PremierHeaderComponent, FooterComponent, MainNavComponent],
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })

@@ -1,0 +1,61 @@
+/* Fuente Premier League */
+@font-face {
+  font-family: "premier";
+  src: url("/assets/font/premierLeague.ttf") format("truetype");
+}
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "premier", sans-serif;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+.content {
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.content h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #37003c;
+  border-bottom: 2px solid #00bce9;
+  padding-bottom: 10px;
+}
+
+.content h2 {
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #00bce9;
+}
+
+.content p {
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .content h1 {
+    font-size: 24px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+}

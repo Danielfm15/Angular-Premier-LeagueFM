@@ -23,6 +23,13 @@ export const routes: Routes = [
   },
 
   {
+  path: 'politicas',
+  loadComponent: () =>
+    import('./features/legal/privacidad/privacidad.component')
+      .then(m => m.PrivacidadComponent)
+},
+
+  {
     path: 'login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(

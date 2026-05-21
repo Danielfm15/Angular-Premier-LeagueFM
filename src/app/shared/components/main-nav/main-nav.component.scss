@@ -1,0 +1,370 @@
+/* ===========================
+   MAIN NAV (Shared)
+   =========================== */
+
+:host {
+  --pl-purple: #37003c;
+  --pl-purple-2: #4e1060;
+  --pl-purple-3: #602774;
+  --pl-active: #804199;
+  --pl-accent: #00bce9;
+
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.85);
+
+  --radius: 12px;
+  --radius-sm: 10px;
+
+  --shadow-1: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 8px 18px rgba(0, 0, 0, 0.25);
+
+  display: block;
+}
+
+/* Barra */
+.main-nav {
+  background: linear-gradient(180deg, var(--pl-purple) 0%, #2c0031 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+  height: 54px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  margin-top: 60px;
+
+  position: relative;
+  z-index: 999;
+  flex-wrap: wrap;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.main-nav-links {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.main-nav-links .premier-logo {
+  width: 40px;
+  height: 40px;
+  display: block;
+  border-radius: 10px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.main-nav-links .premier-logo:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* Base links y trigger */
+.main-nav-links a,
+.dropdown-trigger {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.dropdown-trigger {
+  background: transparent;
+  border: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font: inherit;
+  line-height: 1;
+  position: relative;
+}
+
+.dropdown-trigger:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dropdown-trigger:focus-visible,
+.main-nav-links a:focus-visible {
+  outline: 2px solid var(--pl-accent);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* Chevron */
+.dropdown-trigger i {
+  transition: transform 0.25s ease;
+  opacity: 0.95;
+}
+.dropdown.active .dropdown-trigger i {
+  transform: rotate(180deg);
+}
+
+/* Subrayado */
+.dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--pl-accent);
+  border-radius: 10px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+  opacity: 0.85;
+}
+.dropdown-trigger:hover::after,
+.dropdown.active .dropdown-trigger::after {
+  transform: scaleX(1);
+}
+
+/* Dropdown wrapper */
+.dropdown {
+  position: relative;
+}
+
+/* Puente invisible para bajar al submenu por cualquier parte */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 12px;
+  background: transparent;
+}
+
+/* Submenu DESKTOP */
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 10px;
+  transform: translateY(8px);
+  transform-origin: top left;
+
+  background: linear-gradient(180deg, var(--pl-purple-2) 0%, #3d0c4b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  padding: 10px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 0;
+  pointer-events: none;
+
+  filter: blur(2px);
+  transition: opacity 0.22s ease, transform 0.22s ease, filter 0.22s ease;
+
+  z-index: 1001;
+  min-width: 220px;
+
+  /* ✅ nunca desbordar viewport */
+  max-width: calc(100vw - 24px);
+  overflow: hidden;
+}
+
+/* Caret */
+.submenu::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 22px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid var(--pl-purple-2);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* ✅ Alineación inteligente a la derecha si se sale */
+.submenu.align-right {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+/* Caret cuando está alineado a la derecha */
+.submenu.align-right::before {
+  left: auto;
+  right: 22px;
+}
+
+/* Mostrar submenu SOLO cuando active */
+.dropdown.active .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  filter: blur(0);
+}
+
+/* Links submenu */
+.submenu a {
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.submenu a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(2px);
+}
+
+.submenu a.active {
+  font-weight: 700;
+  background-color: rgba(128, 65, 153, 0.95);
+  color: #fff;
+  box-shadow: var(--shadow-2);
+}
+
+/* Lema */
+.more-than-game {
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.2px;
+  padding: 0 8px;
+}
+
+/* ===========================
+   RESPONSIVE (<= 767px)
+   =========================== */
+@media (max-width: 767px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .main-nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 14px;
+    align-items: center; /* ✅ centramos contenido */
+  }
+
+  /* ✅ LOGO CENTRADO */
+  .main-nav-links > a:first-child {
+    margin: 0 auto;
+  }
+
+  .main-nav-links .premier-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown::after {
+    display: none;
+  }
+
+  .dropdown-trigger {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+  }
+
+  .submenu {
+    position: static;
+    margin-top: 8px;
+    transform: none;
+    filter: none;
+
+    min-width: unset;
+    width: 100%;
+    max-width: 100%;
+
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: none;
+
+    opacity: 1;
+    pointer-events: auto;
+
+    display: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    overflow: visible;
+  }
+
+  .submenu::before {
+    display: none;
+  }
+
+  .submenu.align-right {
+    right: auto;
+  }
+
+  .dropdown.active .submenu {
+    display: flex;
+  }
+
+  .submenu a {
+    padding: 12px 12px;
+    border-radius: 12px;
+    white-space: normal;
+  }
+
+  .submenu a:hover {
+    transform: none;
+  }
+
+  .more-than-game {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0 2px;
+  }
+}
+
+/* ===========================
+   RESPONSIVE (<= 480px)
+   =========================== */
+@media (max-width: 480px) {
+  .main-nav {
+    padding: 10px;
+  }
+
+  /* ✅ LOGO MÁS PEQUEÑO Y CENTRADO */
+  .main-nav-links .premier-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dropdown-trigger,
+  .main-nav-links a {
+    font-size: 13px;
+  }
+
+  .dropdown-trigger {
+    padding: 12px 12px;
+  }
+
+  .submenu a {
+    padding: 11px 10px;
+  }
+
+  .more-than-game {
+    font-size: 0.95rem;
+  }
+}

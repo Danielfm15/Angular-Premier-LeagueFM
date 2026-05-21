@@ -1,0 +1,137 @@
+<nav class="main-nav" role="navigation" aria-label="Menú principal de navegación">
+  <div class="main-nav-links">
+    <!-- Logo -->
+    <a routerLink="/index" aria-label="Ir a inicio">
+      <img
+        alt="Logo de la web Premier League Master"
+        class="premier-logo"
+        src="/assets/images/logoTFG.png"
+      />
+    </a>
+
+    <!-- Premier League -->
+    <div
+      class="dropdown"
+      data-key="premier"
+      [class.active]="openDropdown() === 'premier'"
+      (mouseenter)="onEnter('premier')"
+      (mouseleave)="onLeave('premier')"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        (click)="toggleMobile('premier', $event)"
+        aria-haspopup="true"
+        [attr.aria-expanded]="openDropdown() === 'premier'"
+      >
+        Premier League
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="submenu"
+        [class.align-right]="submenuAlign() === 'right' && openDropdown() === 'premier'"
+        role="menu"
+      >
+        <a href="#" (click)="openPremierLeagueFixtures($event)" role="menuitem">
+          Calendario
+        </a>
+
+        <a
+          routerLink="/clasificacion"
+          routerLinkActive="active"
+          role="menuitem"
+          (click)="closeDropdowns()"
+        >
+          Clasificación
+        </a>
+      </div>
+    </div>
+
+    <!-- Acerca de -->
+    <div
+      class="dropdown"
+      data-key="about"
+      [class.active]="openDropdown() === 'about'"
+      (mouseenter)="onEnter('about')"
+      (mouseleave)="onLeave('about')"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        (click)="toggleMobile('about', $event)"
+        aria-haspopup="true"
+        [attr.aria-expanded]="openDropdown() === 'about'"
+      >
+        Acerca de
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="submenu"
+        [class.align-right]="submenuAlign() === 'right' && openDropdown() === 'about'"
+        role="menu"
+        aria-label="Submenú Acerca de"
+      >
+        <a routerLink="/politicas" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Política de Privacidad
+        </a>
+        <a routerLink="/normas" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Normas
+        </a>
+        <a routerLink="/avisolegal" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Aviso Legal
+        </a>
+        <a routerLink="/contacto" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Contacto
+        </a>
+      </div>
+    </div>
+
+    <!-- Premier League Master -->
+    <div
+      class="dropdown"
+      data-key="plm"
+      [class.active]="openDropdown() === 'plm'"
+      (mouseenter)="onEnter('plm')"
+      (mouseleave)="onLeave('plm')"
+    >
+      <button
+        type="button"
+        class="dropdown-trigger"
+        (click)="toggleMobile('plm', $event)"
+        aria-haspopup="true"
+        [attr.aria-expanded]="openDropdown() === 'plm'"
+      >
+        Premier League Master
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+
+      <div
+        class="submenu"
+        [class.align-right]="submenuAlign() === 'right' && openDropdown() === 'plm'"
+        role="menu"
+      >
+        <a
+          routerLink="/index"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          role="menuitem"
+          (click)="closeDropdowns()"
+        >
+          Inicio
+        </a>
+        <a routerLink="/ligas" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Ligas
+        </a>
+        <a routerLink="/mercado" routerLinkActive="active" role="menuitem" (click)="closeDropdowns()">
+          Mercado
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="more-than-game" aria-label="Lema de la página">
+    Más que un juego
+  </div>
+</nav>
