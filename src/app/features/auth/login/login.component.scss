@@ -1,7 +1,5 @@
-/* Fuente personalizada */
-@font-face {
-  font-family: "premier";
-  src: url("/assets/font/premierLeague.ttf") format("truetype");
+:host {
+  display: block;
 }
 
 /* Reset y fuente global */

@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+/* ===========================
+   FUENTE GLOBAL
+   =========================== */
+@font-face {
+  font-family: "premier";
+  src: url("/assets/font/premierLeague.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===========================
+   RESET GLOBAL
+   =========================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===========================
+   BASE HTML / BODY
+   =========================== */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "premier", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue",
+    Arial, sans-serif;
+
+  background-color: #ffffff;
+  color: #000;
+  overflow-x: hidden;
+}

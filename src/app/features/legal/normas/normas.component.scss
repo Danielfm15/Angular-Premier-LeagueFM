@@ -1,0 +1,105 @@
+
+:host {
+  display: block;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 40px 60px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+  font-size: 17px;
+  color: #333;
+  line-height: 1.75;
+}
+
+.content h1 {
+  font-size: 34px;
+  margin-bottom: 25px;
+  color: #37003c;
+  border-bottom: 3px solid #00bce9;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.content h2 {
+  font-size: 26px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  color: #00bce9;
+  border-left: 5px solid #37003c;
+  padding-left: 10px;
+}
+
+.content h3 {
+  font-size: 20px;
+  margin-top: 25px;
+  color: #37003c;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 5px;
+}
+
+.content p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 15px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.content table th,
+.content table td {
+  border: 1px solid #ddd;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.content table th {
+  background-color: #37003c;
+  color: white;
+  font-weight: bold;
+}
+
+.content em {
+  color: #666;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .content {
+    margin: 20px 15px;
+    padding: 30px 25px;
+    font-size: 15px;
+  }
+
+  .content h1 {
+    font-size: 26px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+
+  .content h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    margin: 15px 10px;
+    padding: 20px 15px;
+    font-size: 14px;
+  }
+}

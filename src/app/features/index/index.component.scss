@@ -1,18 +1,8 @@
-/* Fuente Premier League */
-@font-face {
-  font-family: "premier";
-  src: url("/assets/font/premierLeague.ttf") format("truetype");
+
+:host {
+  display: block;
 }
 
-/* Host del componente (equivalente al body en HTML clásico) */
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: "premier", sans-serif;
-  overflow-x: hidden;
-  background-color: #fff;
-}
 
 /* Reset básico */
 * {

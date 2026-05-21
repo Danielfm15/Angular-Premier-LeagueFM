@@ -23,11 +23,20 @@ export const routes: Routes = [
   },
 
   {
-  path: 'politicas',
-  loadComponent: () =>
-    import('./features/legal/privacidad/privacidad.component')
-      .then(m => m.PrivacidadComponent)
-},
+    path: 'politicas',
+    loadComponent: () =>
+      import('./features/legal/privacidad/privacidad.component').then(
+        (m) => m.PrivacidadComponent,
+      ),
+  },
+
+  {
+    path: 'normas',
+    loadComponent: () =>
+      import('./features/legal/normas/normas.component').then(
+        (m) => m.NormasComponent,
+      ),
+  },
 
   {
     path: 'login',
