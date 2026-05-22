@@ -1,0 +1,65 @@
+.table-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: rgba(26, 26, 26, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #1a1a1a;
+  color: #999;
+  padding: 8px 4px;
+  font-size: 14px;
+}
+
+td {
+  padding: 8px 4px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+  color: #fff;
+}
+
+.team-cell {
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.position {
+  width: 30px;
+}
+
+/* Colores por clasificación */
+.promotion { border-left: 4px solid #00a651; }
+.ucl        { border-left: 4px solid #304a97; }
+.uefa      { border-left: 4px solid #ed8b0c; }
+.middle-tab{ border-left: 4px solid #c3cdcd; }
+.relegation{ border-left: 4px solid #e31b23; }
+
+.pts {
+  font-weight: bold;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+
+  background: url("/assets/images/media/fondoClasificacion.png")
+    no-repeat center center fixed;
+  background-size: cover;
+}

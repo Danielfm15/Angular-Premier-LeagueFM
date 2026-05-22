@@ -45,6 +45,13 @@ export const routes: Routes = [
       .then(m => m.ContactoComponent)
 },
 
+{
+  path: 'clasificacion',
+  loadComponent: () =>
+    import('./features/clasificacion/clasificacion.component')
+      .then(m => m.ClasificacionComponent)
+},
+
   {
     path: 'login',
     loadComponent: () =>

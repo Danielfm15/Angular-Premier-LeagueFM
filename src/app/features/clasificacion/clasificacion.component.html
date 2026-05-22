@@ -1,0 +1,51 @@
+<app-premier-header></app-premier-header>
+<app-main-nav></app-main-nav>
+
+<main class="table-container">
+  <table aria-label="Tabla de clasificación de la liga">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Club</th>
+        <th>PJ</th>
+        <th>V</th>
+        <th>E</th>
+        <th>D</th>
+        <th>GF</th>
+        <th>GC</th>
+        <th>DG</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="let equipo of clasificacion; let i = index"
+        [ngClass]="filaClase(i)"
+      >
+        <td class="position">{{ i + 1 }}</td>
+
+        <td class="team-cell">
+          <img
+  *ngIf="getEscudo(equipo.nombre) as escudo"
+  [src]="escudo"
+  [alt]="equipo.nombre"
+  class="team-logo"
+/>
+          {{ equipo.nombre }}
+        </td>
+
+        <td>{{ equipo.partidos_jugados }}</td>
+        <td>{{ equipo.partidos_ganados }}</td>
+        <td>{{ equipo.partidos_empatados }}</td>
+        <td>{{ equipo.partidos_perdidos }}</td>
+        <td>{{ equipo.goles_a_favor }}</td>
+        <td>{{ equipo.goles_en_contra }}</td>
+        <td>{{ equipo.diferencia_goles }}</td>
+        <td class="pts">{{ equipo.puntos }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<app-footer></app-footer>
