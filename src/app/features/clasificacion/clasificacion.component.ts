@@ -21,6 +21,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 export class ClasificacionComponent implements OnInit {
 
   clasificacion: EquipoClasificacion[] = [];
+  loading = true;
 
   constructor(private clasificacionService: ClasificacionService) {}
 
@@ -28,6 +29,7 @@ export class ClasificacionComponent implements OnInit {
     this.clasificacionService.obtenerClasificacion().subscribe({
       next: data => {
         this.clasificacion = data;
+        this.loading = false;
         console.log('✅ Datos recibidos:', data);
       },
       error: err => console.error('❌ Error Angular:', err),

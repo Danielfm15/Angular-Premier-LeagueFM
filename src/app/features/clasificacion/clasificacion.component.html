@@ -3,6 +3,7 @@
 
 <main class="table-container">
   <table aria-label="Tabla de clasificación de la liga">
+    <!-- ✅ CABECERA ÚNICA Y FIJA -->
     <thead>
       <tr>
         <th>#</th>
@@ -18,20 +19,31 @@
       </tr>
     </thead>
 
-    <tbody>
+    <!-- ✅ SOLO CAMBIA EL TBODY -->
+    <tbody *ngIf="!loading; else loadingTpl">
       <tr
         *ngFor="let equipo of clasificacion; let i = index"
         [ngClass]="filaClase(i)"
+        class="row-animate"
+        [style.animationDelay.ms]="i * 40"
       >
-        <td class="position">{{ i + 1 }}</td>
+        <td class="position">
+  {{ i + 1 }}
+  <span
+    *ngIf="i <= 5 || i >= clasificacion.length - 3"
+    class="pos-indicator"
+    [attr.data-type]="filaClase(i)"
+  ></span>
+</td>
+
 
         <td class="team-cell">
           <img
-  *ngIf="getEscudo(equipo.nombre) as escudo"
-  [src]="escudo"
-  [alt]="equipo.nombre"
-  class="team-logo"
-/>
+            *ngIf="getEscudo(equipo.nombre) as escudo"
+            [src]="escudo"
+            [alt]="equipo.nombre"
+            class="team-logo"
+          />
           {{ equipo.nombre }}
         </td>
 
@@ -46,6 +58,15 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- ✅ SKELETON LOADING -->
+  <ng-template #loadingTpl>
+    <tbody>
+      <tr *ngFor="let _ of [].constructor(10)">
+        <td colspan="10" class="skeleton-row"></td>
+      </tr>
+    </tbody>
+  </ng-template>
 </main>
 
 <app-footer></app-footer>
