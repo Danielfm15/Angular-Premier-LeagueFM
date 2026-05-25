@@ -6,6 +6,8 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 table {
@@ -45,11 +47,21 @@ td {
 }
 
 /* Colores por clasificación */
-.promotion { border-left: 4px solid #00a651; }
-.ucl        { border-left: 4px solid #304a97; }
-.uefa      { border-left: 4px solid #ed8b0c; }
-.middle-tab{ border-left: 4px solid #c3cdcd; }
-.relegation{ border-left: 4px solid #e31b23; }
+.promotion {
+  border-left: 4px solid #00a651;
+}
+.ucl {
+  border-left: 4px solid #304a97;
+}
+.uefa {
+  border-left: 4px solid #ed8b0c;
+}
+.middle-tab {
+  border-left: 4px solid #c3cdcd;
+}
+.relegation {
+  border-left: 4px solid #e31b23;
+}
 
 .pts {
   font-weight: bold;
@@ -59,8 +71,8 @@ td {
   display: block;
   min-height: 100vh;
 
-  background: url("/assets/images/media/fondoClasificacion.png")
-    no-repeat center center fixed;
+  background: url("/assets/images/media/fondoClasificacion.png") no-repeat
+    center center fixed;
   background-size: cover;
 }
 

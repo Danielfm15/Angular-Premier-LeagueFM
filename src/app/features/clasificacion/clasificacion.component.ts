@@ -64,6 +64,9 @@ export class ClasificacionComponent implements OnInit {
   'Tottenham': 'Tottenham.png',
   'West Ham': 'West Ham.png',
   'Wolves': 'Wolves.png',
+  'Ipswich Town': 'Ipswich Town.png',
+  'Leicester': 'Leicester.png',
+  'Southampton': 'Southampton.png',
 };
 
 getEscudo(nombreEquipo: string): string | null {
