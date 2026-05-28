@@ -1,0 +1,27 @@
+<section class="leagues-container">
+  <h1>Mis Ligas</h1>
+
+  <div *ngIf="loading">Cargando ligas…</div>
+
+  <div *ngIf="!loading && ligas.length === 0">
+    No perteneces a ninguna liga.
+  </div>
+
+  <div class="lista-ligas">
+    <div class="liga-item" *ngFor="let liga of ligas">
+      <h2>{{ liga.nombre }}</h2>
+      <p><strong>Código:</strong> {{ liga.codigo_liga }}</p>
+      <p><strong>Usuarios:</strong> {{ liga.num_usuarios }}</p>
+      <p><strong>Creador:</strong> {{ liga.creador_nombre }}</p>
+
+      <button (click)="verLiga(liga.id_liga)">
+        Ver liga
+      </button>
+    </div>
+  </div>
+
+  <div class="acciones">
+    <button (click)="crearLiga()">Crear Liga</button>
+    <button (click)="unirseLiga()">Unirse a Liga</button>
+  </div>
+</section>

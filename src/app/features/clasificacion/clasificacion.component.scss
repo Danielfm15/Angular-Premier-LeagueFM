@@ -1,15 +1,61 @@
-.table-container {
-  max-width: 1200px;
-  margin: 40px auto;
-  background-color: rgba(26, 26, 26, 0.5);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
+/* ===========================
+   LAYOUT GENERAL
+   =========================== */
+:host {
+  display: block;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Fondo fijo SIN background-attachment: fixed */
+:host::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/assets/images/media/fondoClasificacion.png")
+    no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+
+  /* fuerza composición correcta */
   transform: translateZ(0);
   will-change: transform;
 }
 
+/* ===========================
+   CONTENEDOR TABLA
+   =========================== */
+.table-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+
+  position: relative;
+}
+
+/* Blur fuera del flujo principal */
+.table-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 26, 26, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* Contenido por encima del blur */
+.table-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+   TABLA
+   =========================== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -18,12 +64,12 @@ table {
 th {
   background-color: #1a1a1a;
   color: #999;
-  padding: 8px 4px;
+  padding: 10px 6px;
   font-size: 14px;
 }
 
 td {
-  padding: 8px 4px;
+  padding: 10px 6px;
   text-align: center;
   border-bottom: 1px solid #333;
   font-size: 14px;
@@ -44,21 +90,30 @@ td {
 
 .position {
   width: 30px;
+  position: relative;
+  padding-left: 18px;
+  font-weight: 600;
 }
 
-/* Colores por clasificación */
+/* ===========================
+   COLORES POR CLASIFICACIÓN
+   =========================== */
 .promotion {
   border-left: 4px solid #00a651;
 }
+
 .ucl {
   border-left: 4px solid #304a97;
 }
+
 .uefa {
   border-left: 4px solid #ed8b0c;
 }
+
 .middle-tab {
   border-left: 4px solid #c3cdcd;
 }
+
 .relegation {
   border-left: 4px solid #e31b23;
 }
@@ -67,15 +122,39 @@ td {
   font-weight: bold;
 }
 
-:host {
-  display: block;
-  min-height: 100vh;
-
-  background: url("/assets/images/media/fondoClasificacion.png") no-repeat
-    center center fixed;
-  background-size: cover;
+/* ===========================
+   INDICADOR LATERAL
+   =========================== */
+.pos-indicator {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 70%;
+  border-radius: 4px;
+  opacity: 0.9;
 }
 
+.pos-indicator[data-type="promotion"] {
+  background: linear-gradient(#ffd700, #ffb700);
+}
+
+.pos-indicator[data-type="ucl"] {
+  background: linear-gradient(#3b82f6, #1e40af);
+}
+
+.pos-indicator[data-type="uefa"] {
+  background: linear-gradient(#fb923c, #ea580c);
+}
+
+.pos-indicator[data-type="relegation"] {
+  background: linear-gradient(#ef4444, #991b1b);
+}
+
+/* ===========================
+   LOADING / SKELETON
+   =========================== */
 .loading {
   pointer-events: none;
 }
@@ -100,7 +179,10 @@ td {
     background-position: 0 0;
   }
 }
-/* Animación de entrada de filas */
+
+/* ===========================
+   ANIMACIÓN DE FILAS
+   =========================== */
 .row-animate {
   opacity: 0;
   transform: translateY(6px);
@@ -123,37 +205,23 @@ td {
   }
 }
 
-.position {
-  position: relative;
-  padding-left: 18px;
-  font-weight: 600;
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 900px) {
+  .table-container {
+    margin: 20px 12px;
+  }
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 8px 4px;
+  }
 }
 
-/* Indicador lateral */
-.pos-indicator {
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 70%;
-  border-radius: 4px;
-  opacity: 0.9;
-}
-
-/* Tipos */
-.pos-indicator[data-type="promotion"] {
-  background: linear-gradient(#ffd700, #ffb700);
-}
-
-.pos-indicator[data-type="ucl"] {
-  background: linear-gradient(#3b82f6, #1e40af);
-}
-
-.pos-indicator[data-type="uefa"] {
-  background: linear-gradient(#fb923c, #ea580c);
-}
-
-.pos-indicator[data-type="relegation"] {
-  background: linear-gradient(#ef4444, #991b1b);
+@media (max-width: 600px) {
+  .team-cell {
+    font-size: 13px;
+  }
 }

@@ -6,11 +6,11 @@ export const authGuard: CanActivateFn = () => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  // ✅ Usuario logeado → dejamos pasar
+  // ✅ Usuario logueado → permitimos acceso
   if (authStore.isLoggedIn()) {
     return true;
   }
 
-  // ✅ Usuario NO logeado → devolvemos UrlTree
+  // ❌ Usuario NO logueado → redirigimos a login
   return router.createUrlTree(['/login']);
 };

@@ -1,0 +1,273 @@
+/* ===========================
+   LAYOUT
+   =========================== */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  position: relative;
+  isolation: isolate; /* asegura capas correctas */
+}
+
+/* Fondo fijo SIN background-attachment: fixed (evita el bug) */
+:host::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/assets/images/media/fondoMercado.jpg") no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+
+  /* fuerza composición GPU y evita “aparece al click” */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+
+.market-container {
+  flex: 1;
+  padding: 90px 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ===========================
+   FILTROS
+   =========================== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.filters input,
+.filters select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-width: 160px;
+}
+
+/* ===========================
+   CABECERA
+   =========================== */
+.market-header {
+  display: grid;
+  grid-template-columns: 64px 2fr 1fr 1fr 1fr 64px 64px;
+  gap: 16px;
+  align-items: center;
+
+  padding: 12px 20px;
+  margin-bottom: 10px;
+
+  background: #37003c;
+  color: #fff;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  border-radius: 10px;
+}
+
+/* ===========================
+   FILAS
+   =========================== */
+.players {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.player-row {
+  display: grid;
+  grid-template-columns: 64px 2fr 1fr 1fr 1fr 64px 64px;
+  gap: 16px;
+  align-items: center;
+
+  padding: 16px 20px;
+
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 14px;
+  border-left: 5px solid #37003c;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+/* ✅ Resaltado claro al hover */
+.player-row:hover {
+  transform: translateY(-2px);
+  background-color: #f7f3f9;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* ===========================
+   CELDAS
+   =========================== */
+.cell {
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.cell.name {
+  font-weight: 700;
+  color: #37003c;
+}
+
+.cell.price {
+  font-weight: 700;
+}
+
+.cell.points {
+  font-weight: 600;
+}
+
+/* ===========================
+   IMÁGENES
+   =========================== */
+.player-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 2px solid #37003c;
+  background-color: #eee;
+
+  transition: transform 0.2s ease;
+}
+
+/* Micro‑detalle bonito */
+.player-row:hover .player-img {
+  transform: scale(1.05);
+}
+
+.club-img,
+.estado-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* ===========================
+   PAGINACIÓN
+   =========================== */
+.pagination {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.pagination span {
+  font-weight: 600;
+  color: #37003c;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+
+  background: #37003c;
+  color: #fff;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #4e0f54;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+app-footer {
+  margin-top: auto;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 900px) {
+  .market-header {
+    display: none;
+  }
+
+  .player-row {
+    grid-template-columns: 56px 1fr 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 8px;
+  }
+
+  .cell.price,
+  .cell.points {
+    grid-column: span 2;
+  }
+
+  .club-img,
+  .estado-img {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters input,
+  .filters select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .market-container {
+    padding: 80px 12px 30px;
+  }
+
+  .player-row {
+    padding: 14px;
+  }
+
+  .cell {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 900px) {
+  :host::before {
+    position: absolute; /* en móvil suele ir más fluido */
+  }
+}

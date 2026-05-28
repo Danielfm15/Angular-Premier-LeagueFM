@@ -1,0 +1,22 @@
+.leagues-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 40px;
+}
+
+.lista-ligas {
+  margin-top: 24px;
+}
+
+.liga-item {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.acciones {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}

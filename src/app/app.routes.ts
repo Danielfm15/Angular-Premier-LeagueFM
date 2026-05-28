@@ -39,18 +39,28 @@ export const routes: Routes = [
   },
 
   {
-  path: 'contacto',
-  loadComponent: () =>
-    import('./features/legal/contacto/contacto.component')
-      .then(m => m.ContactoComponent)
-},
+    path: 'contacto',
+    loadComponent: () =>
+      import('./features/legal/contacto/contacto.component').then(
+        (m) => m.ContactoComponent,
+      ),
+  },
 
-{
-  path: 'clasificacion',
-  loadComponent: () =>
-    import('./features/clasificacion/clasificacion.component')
-      .then(m => m.ClasificacionComponent)
-},
+  {
+    path: 'clasificacion',
+    loadComponent: () =>
+      import('./features/clasificacion/clasificacion.component').then(
+        (m) => m.ClasificacionComponent,
+      ),
+  },
+
+  {
+    path: 'mercado',
+    loadComponent: () =>
+      import('./features/mercado/mercado.component').then(
+        (m) => m.MercadoComponent,
+      ),
+  },
 
   {
     path: 'login',
@@ -59,6 +69,17 @@ export const routes: Routes = [
         (m) => m.LoginComponent,
       ),
   },
+
+  
+{
+    path: 'ligas',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/ligas/ligas.component').then(
+        m => m.LigasComponent
+      ),
+  },
+
 
   // EJEMPLO DE RUTA PRIVADA (cuando exista)
   /* {
