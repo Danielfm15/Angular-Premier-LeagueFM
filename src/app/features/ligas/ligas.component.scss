@@ -1,22 +1,420 @@
-.leagues-container {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 40px;
-}
-
-.lista-ligas {
-  margin-top: 24px;
-}
-
-.liga-item {
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.acciones {
-  margin-top: 24px;
+/* =====================================================
+   HOST: layout base + fondo
+===================================================== */
+:host {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  background: url('/assets/images/media/fondoAlineacion.png') no-repeat center
+    center fixed;
+  background-size: cover;
+
+  /* tipografía coherente en todo el componente */
+  font-family: 'Premier', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =====================================================
+   CONTENIDO PRINCIPAL
+===================================================== */
+.leagues-container {
+  flex: 1;
+
+  max-width: 1100px;
+  margin: 60px auto 40px;
+  padding: 36px 40px;
+
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.leagues-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+
+  margin-bottom: 42px;
+  padding-bottom: 26px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    line-height: 1.1;
+
+    text-shadow: 0 0 14px rgba(0, 255, 133, 0.25);
+  }
+}
+
+/* =====================================================
+   ACCIONES
+===================================================== */
+.acciones {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+/* =====================================================
+   BOTONES (REWORK)
+===================================================== */
+/* =====================================================
+   BOTONES – AJUSTE TIPOGRÁFICO
+===================================================== */
+.btn {
+  border-radius: 999px;
+  padding: 9px 20px;
+
+  font-family: inherit;        /* clave: misma fuente que el resto */
+  font-weight: 600;            /* menos “grito”, más elegante */
+  font-size: 0.8rem;
+  letter-spacing: 0.15px;      /* más natural */
+  line-height: 1;
+
+  cursor: pointer;
+  border: none;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+  &.primary {
+    background: #00ff85;
+    color: #1b1b1b;
+    box-shadow: 0 3px 10px rgba(0, 255, 133, 0.35);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 255, 133, 0.5);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 255, 133, 0.35);
+    }
+  }
+
+  &.secondary {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+}
+
+
+/* =====================================================
+   ESTADOS + ANIMACIÓN SUTIL
+===================================================== */
+.estado {
+  text-align: center;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  padding: 40px 0;
+
+  animation: fadeInUp 0.4s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   GRID DE LIGAS
+===================================================== */
+.lista-ligas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+/* =====================================================
+   CARD LIGA (MICRO-HOVER REFINADO)
+===================================================== */
+.liga-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+  }
+}
+
+
+.liga-card:nth-child(1) { animation-delay: 0.05s; }
+.liga-card:nth-child(2) { animation-delay: 0.1s; }
+.liga-card:nth-child(3) { animation-delay: 0.15s; }
+.liga-card:nth-child(4) { animation-delay: 0.2s; }
+.liga-card:nth-child(5) { animation-delay: 0.25s; }
+.liga-card:nth-child(6) { animation-delay: 0.3s; }
+
+
+.liga-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .codigo {
+    background: #00ff85;
+    color: #1b1b1b;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+.liga-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  .label {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.7;
+  }
+
+  .value {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer,
+.site-footer {
+  margin-top: auto;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  padding: 20px; /* importante para móviles */
+}
+
+.modal {
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 18px;
+  padding: 28px 32px;
+  width: 100%;
+  max-width: 420px;
+
+  color: #ffffff;
+  text-align: center;
+
+  animation: modalIn 0.25s ease both;
+
+  h2 {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  p {
+    opacity: 0.8;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+
+    background: rgba(255, 255, 255, 0.9);
+    color: #1b1b1b;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* =====================================================
+   TOAST DE ÉXITO
+===================================================== */
+.toast-exito {
+  margin-bottom: 20px;
+  padding: 12px 18px;
+  border-radius: 12px;
+
+  background: rgba(0, 255, 133, 0.15);
+  color: #00ff85;
+  font-weight: 600;
+  text-align: center;
+
+  animation: fadeToast 0.3s ease both;
+}
+
+@keyframes fadeToast {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   ANIMACIÓN
+===================================================== */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
+   MEDIA QUERIES
+===================================================== */
+@media (max-width: 768px) {
+  .leagues-container {
+    margin: 40px 20px;
+    padding: 28px;
+  }
+
+  .leagues-header {
+    grid-template-columns: 1fr;
+    gap: 22px;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .acciones {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+   .modal {
+    max-width: 360px;
+    padding: 26px 28px;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .leagues-container {
+    margin: 20px;
+    padding: 22px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .lista-ligas {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    max-width: 100%;
+    padding: 24px 22px;
+    border-radius: 16px;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+
+    .btn {
+      width: 100%;
+    }
+  }
 }

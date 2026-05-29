@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
 import { LigasService } from '../../core/services/ligas.service';
@@ -7,20 +8,46 @@ import { LigasService } from '../../core/services/ligas.service';
 import { AuthUser } from '../../core/models/auth-user.model';
 import { Liga } from '../../core/models/liga.model';
 
+import { PremierHeaderComponent } from '../../shared/components/premier-header/premier-header.component';
+import { MainNavComponent } from '../../shared/components/main-nav/main-nav.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+
 @Component({
   selector: 'app-ligas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    PremierHeaderComponent,
+    MainNavComponent,
+    FooterComponent
+  ],
   templateUrl: './ligas.component.html',
   styleUrls: ['./ligas.component.scss'],
 })
 export class LigasComponent implements OnInit {
 
+  // =========================
+  // DATOS
+  // =========================
   ligas: Liga[] = [];
   loading = true;
 
-  usuario: AuthUser | null = null;
+  usuario!: AuthUser;
   idUsuario!: number;
+
+  // =========================
+  // FEEDBACK
+  // =========================
+  mensajeExito: string | null = null;
+  private timeoutMensaje?: number;
+
+  // =========================
+  // MODAL CREAR LIGA
+  // =========================
+  mostrarModalCrear = false;
+  nombreNuevaLiga = '';
+  creandoLiga = false;
 
   constructor(
     private ligasService: LigasService,
@@ -28,11 +55,14 @@ export class LigasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  this.usuario = this.authService.getCurrentUser();
-  this.idUsuario = this.usuario!.id_usuario;
-  this.cargarLigas();
-}
+    this.usuario = this.authService.getCurrentUser()!;
+    this.idUsuario = this.usuario.id_usuario;
+    this.cargarLigas();
+  }
 
+  // =========================
+  // CARGAR LIGAS
+  // =========================
   cargarLigas(): void {
     this.loading = true;
 
@@ -48,33 +78,74 @@ export class LigasComponent implements OnInit {
     });
   }
 
-  crearLiga(): void {
-    const nombre = prompt('Introduce el nombre de la liga');
-    if (!nombre) return;
-
-    const codigo = Math.random()
-      .toString(36)
-      .substring(2, 8)
-      .toUpperCase();
-
-    this.ligasService.crearLiga(nombre, codigo, this.idUsuario).subscribe({
-      next: () => this.cargarLigas(),
-      error: () => alert('Error al crear la liga'),
-    });
+  // =========================
+  // MODAL CREAR LIGA
+  // =========================
+  abrirModalCrearLiga(): void {
+    this.nombreNuevaLiga = '';
+    this.mostrarModalCrear = true;
   }
 
-  unirseLiga(): void {
-    const codigo = prompt('Introduce el código de la liga');
-    if (!codigo) return;
+  cerrarModalCrearLiga(): void {
+    this.mostrarModalCrear = false;
+  }
 
-    this.ligasService.unirseALiga(codigo, this.idUsuario).subscribe({
-      next: () => this.cargarLigas(),
-      error: () => alert('Error al unirse a la liga'),
+ confirmarCrearLiga(): void {
+  if (!this.nombreNuevaLiga.trim() || this.creandoLiga) return;
+
+  // ✅ Cerramos modal inmediatamente
+  this.mostrarModalCrear = false;
+  this.creandoLiga = true;
+
+  const nombreLiga = this.nombreNuevaLiga.trim();
+  this.nombreNuevaLiga = '';
+
+  const codigo = Math.random()
+    .toString(36)
+    .substring(2, 8)
+    .toUpperCase();
+
+  this.ligasService
+    .crearLiga(nombreLiga, codigo, this.idUsuario)
+    .subscribe({
+      next: () => {
+        this.creandoLiga = false;
+
+        // ✅ Forzar refresco visual
+        this.ligas = [];
+        this.cargarLigas();
+
+        // ✅ Mensaje de éxito
+        this.mostrarMensajeExito('Liga creada correctamente');
+      },
+      error: (err) => {
+        console.error('Error al crear la liga', err);
+        this.creandoLiga = false;
+      },
     });
+}
+
+  private mostrarMensajeExito(mensaje: string): void {
+    this.mensajeExito = mensaje;
+
+    if (this.timeoutMensaje) {
+      clearTimeout(this.timeoutMensaje);
+    }
+
+    this.timeoutMensaje = window.setTimeout(() => {
+      this.mensajeExito = null;
+    }, 2500);
+  }
+
+  // =========================
+  // UNIRSE / VER LIGA
+  // =========================
+  unirseLiga(): void {
+    // Se implementa en el siguiente paso
   }
 
   verLiga(idLiga: number): void {
-    // El routing se añadirá en el siguiente paso
+    // Routing a clasificación más adelante
     console.log('Ir a clasificación de liga', idLiga);
   }
 }

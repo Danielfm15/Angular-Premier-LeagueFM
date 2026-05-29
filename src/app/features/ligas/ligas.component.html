@@ -1,27 +1,83 @@
+<app-premier-header></app-premier-header>
+<app-main-nav></app-main-nav>
 <section class="leagues-container">
-  <h1>Mis Ligas</h1>
+  <header class="leagues-header">
+    <h1>Mis Ligas</h1>
 
-  <div *ngIf="loading">Cargando ligas…</div>
+    <div class="acciones">
+      <button class="btn primary" (click)="abrirModalCrearLiga()">
+        Crear liga
+      </button>
 
-  <div *ngIf="!loading && ligas.length === 0">
-    No perteneces a ninguna liga.
+      <button class="btn secondary" (click)="unirseLiga()">
+        Unirse a liga
+      </button>
+    </div>
+  </header>
+  <!-- MENSAJE DE ÉXITO -->
+<div class="toast-exito" *ngIf="mensajeExito">
+  {{ mensajeExito }}
+</div>
+
+
+  <div *ngIf="loading" class="estado">Cargando ligas…</div>
+
+  <div *ngIf="!loading && ligas.length === 0" class="estado">
+    No perteneces a ninguna liga todavía.
   </div>
 
   <div class="lista-ligas">
-    <div class="liga-item" *ngFor="let liga of ligas">
-      <h2>{{ liga.nombre }}</h2>
-      <p><strong>Código:</strong> {{ liga.codigo_liga }}</p>
-      <p><strong>Usuarios:</strong> {{ liga.num_usuarios }}</p>
-      <p><strong>Creador:</strong> {{ liga.creador_nombre }}</p>
+    <article class="liga-card" *ngFor="let liga of ligas">
+      <div class="liga-header">
+        <h2>{{ liga.nombre }}</h2>
+        <span class="codigo">{{ liga.codigo_liga }}</span>
+      </div>
 
-      <button (click)="verLiga(liga.id_liga)">
+      <div class="liga-info">
+        <div>
+          <span class="label">Usuarios</span>
+          <span class="value">{{ liga.num_usuarios }}</span>
+        </div>
+
+        <div>
+          <span class="label">Creador</span>
+          <span class="value">{{ liga.creador_nombre }}</span>
+        </div>
+      </div>
+
+      <button class="btn outline" (click)="verLiga(liga.id_liga)">
         Ver liga
+      </button>
+    </article>
+  </div>
+</section>
+<app-footer></app-footer>
+
+<!-- MODAL CREAR LIGA -->
+<div class="modal-overlay" *ngIf="mostrarModalCrear">
+  <div class="modal">
+    <h2>Crear nueva liga</h2>
+
+    <p>Introduce el nombre de la liga</p>
+
+    <input
+      type="text"
+      placeholder="Nombre de la liga"
+      [(ngModel)]="nombreNuevaLiga"
+      [disabled]="creandoLiga"
+    />
+
+    <div class="modal-actions">
+      <button class="btn secondary" (click)="cerrarModalCrearLiga()">
+        Cancelar
+      </button>
+      <button
+        class="btn primary"
+        (click)="confirmarCrearLiga()"
+        [disabled]="!nombreNuevaLiga.trim() || creandoLiga"
+      >
+        Crear
       </button>
     </div>
   </div>
-
-  <div class="acciones">
-    <button (click)="crearLiga()">Crear Liga</button>
-    <button (click)="unirseLiga()">Unirse a Liga</button>
-  </div>
-</section>
+</div>

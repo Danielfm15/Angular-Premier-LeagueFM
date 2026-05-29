@@ -11,13 +11,14 @@ export class LigasService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerLigasUsuario(
-    idUsuario: number
-  ): Observable<{ exito: boolean; ligas: Liga[] }> {
-    return this.http.get<{ exito: boolean; ligas: Liga[] }>(
-      `${this.apiUrl}/participante/${idUsuario}`
-    );
-  }
+ obtenerLigasUsuario(idUsuario: number) {
+  return this.http.get<{ exito: boolean; ligas: Liga[] }>(
+    `http://localhost:3000/api/ligas/participante/${idUsuario}`
+  );
+}
+
+
+  
 
   crearLiga(
     nombre: string,
