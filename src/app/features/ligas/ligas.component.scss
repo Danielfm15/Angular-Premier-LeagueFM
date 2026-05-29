@@ -6,12 +6,17 @@
   flex-direction: column;
   min-height: 100vh;
 
-  background: url('/assets/images/media/fondoAlineacion.png') no-repeat center
+  background: url("/assets/images/media/fondoAlineacion.png") no-repeat center
     center fixed;
   background-size: cover;
 
   /* tipografía coherente en todo el componente */
-  font-family: 'Premier', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Premier",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 /* =====================================================
@@ -78,10 +83,10 @@
   border-radius: 999px;
   padding: 9px 20px;
 
-  font-family: inherit;        /* clave: misma fuente que el resto */
-  font-weight: 600;            /* menos “grito”, más elegante */
+  font-family: inherit; /* clave: misma fuente que el resto */
+  font-weight: 600; /* menos “grito”, más elegante */
   font-size: 0.8rem;
-  letter-spacing: 0.15px;      /* más natural */
+  letter-spacing: 0.15px; /* más natural */
   line-height: 1;
 
   cursor: pointer;
@@ -128,6 +133,23 @@
   }
 }
 
+.btn.outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  margin-top: auto;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 255, 133, 0.15);
+    border-color: #00ff85;
+    color: #00ff85;
+  }
+}
 
 /* =====================================================
    ESTADOS + ANIMACIÓN SUTIL
@@ -165,6 +187,8 @@
    CARD LIGA (MICRO-HOVER REFINADO)
 ===================================================== */
 .liga-card {
+  position: relative;
+
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
   border-radius: 18px;
@@ -174,24 +198,43 @@
   flex-direction: column;
   gap: 16px;
 
+  /* ✅ acento sutil */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
   transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease,
+    border-color 0.2s ease;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+    transform: translateY(-2px);
+
+    /* ✅ refuerzo del acento */
+    border-color: rgba(0, 255, 133, 0.5);
   }
 }
 
-
-.liga-card:nth-child(1) { animation-delay: 0.05s; }
-.liga-card:nth-child(2) { animation-delay: 0.1s; }
-.liga-card:nth-child(3) { animation-delay: 0.15s; }
-.liga-card:nth-child(4) { animation-delay: 0.2s; }
-.liga-card:nth-child(5) { animation-delay: 0.25s; }
-.liga-card:nth-child(6) { animation-delay: 0.3s; }
-
+.liga-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.liga-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.liga-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.liga-card:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.liga-card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.liga-card:nth-child(6) {
+  animation-delay: 0.3s;
+}
 
 .liga-header {
   display: flex;
@@ -304,19 +347,31 @@ footer,
 }
 
 /* =====================================================
-   TOAST DE ÉXITO
+   MENSAJE DE ÉXITO CONTEXTUAL
 ===================================================== */
-.toast-exito {
-  margin-bottom: 20px;
+.inline-exito {
+  margin: 0 0 24px 0;
   padding: 12px 18px;
-  border-radius: 12px;
 
+  border-radius: 12px;
   background: rgba(0, 255, 133, 0.15);
   color: #00ff85;
+
   font-weight: 600;
   text-align: center;
 
-  animation: fadeToast 0.3s ease both;
+  animation: fadeInSuccess 0.3s ease both;
+}
+
+@keyframes fadeInSuccess {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeToast {
@@ -367,7 +422,7 @@ footer,
     justify-content: flex-start;
   }
 
-   .modal {
+  .modal {
     max-width: 360px;
     padding: 26px 28px;
 

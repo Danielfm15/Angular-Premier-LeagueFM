@@ -1,5 +1,6 @@
 <app-premier-header></app-premier-header>
 <app-main-nav></app-main-nav>
+
 <section class="leagues-container">
   <header class="leagues-header">
     <h1>Mis Ligas</h1>
@@ -14,11 +15,11 @@
       </button>
     </div>
   </header>
-  <!-- MENSAJE DE ÉXITO -->
-<div class="toast-exito" *ngIf="mensajeExito">
+
+  <!-- ✅ TOAST GLOBAL -->
+<div class="inline-exito" *ngIf="mensajeExito">
   {{ mensajeExito }}
 </div>
-
 
   <div *ngIf="loading" class="estado">Cargando ligas…</div>
 

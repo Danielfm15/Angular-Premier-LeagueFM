@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import { AuthService } from '../../core/services/auth.service';
 import { LigasService } from '../../core/services/ligas.service';
@@ -51,7 +53,8 @@ export class LigasComponent implements OnInit {
 
   constructor(
     private ligasService: LigasService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -126,16 +129,20 @@ export class LigasComponent implements OnInit {
 }
 
   private mostrarMensajeExito(mensaje: string): void {
-    this.mensajeExito = mensaje;
+  this.mensajeExito = mensaje;
 
-    if (this.timeoutMensaje) {
-      clearTimeout(this.timeoutMensaje);
-    }
+  // ✅ Forzamos render inmediato
+  this.cdr.detectChanges();
 
-    this.timeoutMensaje = window.setTimeout(() => {
-      this.mensajeExito = null;
-    }, 2500);
+  if (this.timeoutMensaje) {
+    clearTimeout(this.timeoutMensaje);
   }
+
+  this.timeoutMensaje = window.setTimeout(() => {
+    this.mensajeExito = null;
+    this.cdr.detectChanges();
+  }, 2500);
+}
 
   // =========================
   // UNIRSE / VER LIGA
