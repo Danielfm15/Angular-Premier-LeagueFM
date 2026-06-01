@@ -1,0 +1,56 @@
+<app-premier-header></app-premier-header>
+<app-main-nav></app-main-nav>
+
+<section class="classification-container">
+  <!-- TARJETA SIEMPRE PRESENTE -->
+  <div class="classification-card">
+    <!-- CABECERA DE LA TARJETA -->
+    <header class="card-header">
+      <h1 class="league-name">
+        {{ nombreLiga || 'Liga' }}
+      </h1>
+      <span class="subtitle">Clasificación</span>
+    </header>
+
+    <!-- ESTADO LOADING (INTEGRADO) -->
+    <div class="table-skeleton" *ngIf="loading">
+      <div class="row" *ngFor="let _ of [1, 2, 3, 4]">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- TABLA REAL -->
+    <ng-container *ngIf="!loading">
+      <table
+        class="tabla-clasificacion"
+        aria-label="Clasificación de la liga"
+      >
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Usuario</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of clasificacion; index as i">
+            <td class="pos">{{ i + 1 }}</td>
+            <td class="user">{{ usuario.nombre_usuario }}</td>
+            <td class="pts">{{ usuario.puntos_totales }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ACCIÓN INTEGRADA -->
+      <div class="card-actions">
+        <button class="btn-alineacion" (click)="irAlineacion()">
+          Ver mi alineación
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</section>
+
+<app-footer></app-footer>

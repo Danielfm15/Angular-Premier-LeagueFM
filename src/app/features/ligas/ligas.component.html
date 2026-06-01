@@ -10,9 +10,10 @@
         Crear liga
       </button>
 
-      <button class="btn secondary" (click)="unirseLiga()">
-        Unirse a liga
-      </button>
+<button class="btn secondary" (click)="abrirModalUnirseLiga()">
+  Unirse a liga
+</button>
+
     </div>
   </header>
 
@@ -46,9 +47,21 @@
         </div>
       </div>
 
-      <button class="btn outline" (click)="verLiga(liga.id_liga)">
-        Ver liga
-      </button>
+      <div class="liga-actions">
+  <button
+    class="btn outline"
+    (click)="verClasificacion(liga.id_liga)"
+  >
+    Clasificación
+  </button>
+
+  <button
+    class="btn outline"
+    (click)="irAlineacion(liga.id_liga)"
+  >
+    Alineación
+  </button>
+</div>
     </article>
   </div>
 </section>
@@ -78,6 +91,36 @@
         [disabled]="!nombreNuevaLiga.trim() || creandoLiga"
       >
         Crear
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL UNIRSE A LIGA -->
+<div class="modal-overlay" *ngIf="mostrarModalUnirse">
+  <div class="modal">
+    <h2>Unirse a una liga</h2>
+
+    <p>Introduce el código de la liga</p>
+
+    <input
+      type="text"
+      placeholder="Código de la liga"
+      [(ngModel)]="codigoLiga"
+      [disabled]="uniendoseLiga"
+    />
+
+    <div class="modal-actions">
+      <button class="btn secondary" (click)="cerrarModalUnirseLiga()">
+        Cancelar
+      </button>
+
+      <button
+        class="btn primary"
+        (click)="confirmarUnirseLiga()"
+        [disabled]="!codigoLiga.trim() || uniendoseLiga"
+      >
+        Unirse
       </button>
     </div>
   </div>

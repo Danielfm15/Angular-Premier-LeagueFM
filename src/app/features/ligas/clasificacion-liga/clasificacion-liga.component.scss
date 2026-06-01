@@ -1,0 +1,243 @@
+/* =====================================================
+   HOST + FONDO
+===================================================== */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  background: url("/assets/images/media/fondoAlineacion.png") no-repeat center
+    center fixed;
+  background-size: cover;
+
+  font-family:
+    "Premier",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+/* =====================================================
+   CONTENEDOR GENERAL
+===================================================== */
+.classification-container {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 40px 20px;
+}
+
+/* =====================================================
+   TARJETA CENTRAL
+===================================================== */
+.classification-card {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 40px;
+
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+
+  color: #ffffff;
+  overflow: hidden;
+
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+
+  animation: fadeInUp 0.35s ease both;
+}
+
+/* =====================================================
+   CABECERA DE TARJETA
+===================================================== */
+.card-header {
+  padding: 22px 24px 18px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(106, 13, 173, 0.95),
+    rgba(55, 0, 60, 0.95)
+  );
+
+  text-align: center;
+
+  .league-name {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .subtitle {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    opacity: 0.85;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+}
+
+/* =====================================================
+   TABLA
+===================================================== */
+.tabla-clasificacion {
+  width: 100%;
+  border-collapse: collapse;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #1b1b1b;
+
+  font-size: 0.85rem;
+}
+
+.tabla-clasificacion thead {
+  background: #6a0dad;
+  color: #ffffff;
+}
+
+.tabla-clasificacion th,
+.tabla-clasificacion td {
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.tabla-clasificacion tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.tabla-clasificacion tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.tabla-clasificacion tbody tr:hover {
+  background: rgba(106, 13, 173, 0.12);
+}
+
+.pos {
+  font-weight: 800;
+  color: #37003c;
+  width: 60px;
+}
+
+.pts {
+  font-weight: 700;
+}
+
+/* =====================================================
+   ESTADO DE CARGA (INTEGRADO COMO CONTENIDO)
+===================================================== */
+.estado {
+  min-height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1b1b1b;
+
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* loader sutil integrado */
+.estado::before {
+  content: "Cargando clasificación…";
+  opacity: 0.75;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* =====================================================
+   ACCIONES
+===================================================== */
+.card-actions {
+  padding: 18px 20px;
+
+  display: flex;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.btn-alineacion {
+  border-radius: 999px;
+  padding: 10px 26px;
+
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.8rem;
+
+  background: rgba(0, 255, 133, 0.15);
+  border: 1px solid #00ff85;
+  color: #00ff85;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: #00ff85;
+    color: #1b1b1b;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 255, 133, 0.45);
+  }
+}
+
+/* =====================================================
+   FOOTER ABAJO
+===================================================== */
+footer,
+.site-footer {
+  margin-top: auto;
+}
+
+/* =====================================================
+   ANIMACIÓN
+===================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 480px) {
+  .classification-card {
+    max-width: 100%;
+  }
+
+  .card-header .league-name {
+    font-size: 1.4rem;
+  }
+
+  .btn-alineacion {
+    width: 100%;
+  }
+}

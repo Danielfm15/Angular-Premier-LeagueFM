@@ -11,19 +11,23 @@ export class LigasService {
 
   constructor(private http: HttpClient) {}
 
- obtenerLigasUsuario(idUsuario: number) {
-  return this.http.get<{ exito: boolean; ligas: Liga[] }>(
-    `http://localhost:3000/api/ligas/participante/${idUsuario}`
-  );
-}
+  obtenerLigasUsuario(idUsuario: number) {
+    return this.http.get<{ exito: boolean; ligas: Liga[] }>(
+      `http://localhost:3000/api/ligas/participante/${idUsuario}`,
+    );
+  }
 
-
-  
+  obtenerClasificacionLiga(idLiga: number) {
+    return this.http.get<{
+      nombre_liga: string;
+      clasificacion: { nombre_usuario: string; puntos_totales: number }[];
+    }>(`http://localhost:3000/api/ligas/${idLiga}/clasificacion`);
+  }
 
   crearLiga(
     nombre: string,
     codigo: string,
-    idUsuario: number
+    idUsuario: number,
   ): Observable<any> {
     return this.http.post(`${this.apiUrl}/crear`, {
       nombre,
@@ -32,10 +36,7 @@ export class LigasService {
     });
   }
 
-  unirseALiga(
-    codigo: string,
-    idUsuario: number
-  ): Observable<any> {
+  unirseALiga(codigo: string, idUsuario: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/unirse`, {
       codigo,
       id_usuario: idUsuario,

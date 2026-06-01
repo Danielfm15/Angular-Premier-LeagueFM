@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { ClasificacionLigaComponent } from './features/ligas/clasificacion-liga/clasificacion-liga.component';
 
 export const routes: Routes = [
   {
@@ -7,6 +8,13 @@ export const routes: Routes = [
     redirectTo: 'index',
     pathMatch: 'full',
   },
+
+  
+{
+    path: 'ligas/:idLiga/clasificacion',
+    component: ClasificacionLigaComponent
+  },
+
 
   {
     path: 'index',
