@@ -1,0 +1,214 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: url("/assets/images/media/fondoAlineacion.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Premier", system-ui, sans-serif;
+}
+
+/* =====================================================
+   LAYOUT GENERAL
+===================================================== */
+.alineacion-page {
+  padding: 40px 20px;
+}
+
+.alineacion-layout {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+/* =====================================================
+   CAMPO / ALINEACIÓN
+===================================================== */
+.lineup-container {
+  width: 70%;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.lineup-header {
+  background: rgba(0, 82, 204, 0.95);
+  color: #ffffff;
+  padding: 14px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lineup-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.lineup-header .number {
+  font-weight: 900;
+  margin-right: 6px;
+}
+
+.formation-dropdown {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+}
+
+/* Campo */
+.field-container {
+  height: 480px;
+  background-color: #00b140;
+  position: relative;
+}
+
+/* =====================================================
+   PANEL DERECHO – FILTROS Y JUGADORES
+===================================================== */
+.filters-section {
+  width: 30%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Título */
+.filters-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* Grupos de filtros */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.85rem;
+}
+
+/* Presupuesto */
+#presupuesto-restante {
+  font-weight: 800;
+  color: #00a651;
+  margin-bottom: 4px;
+}
+
+/* =====================================================
+   LISTA DE JUGADORES (TARJETAS)
+===================================================== */
+.player-list {
+  flex: 1;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding-right: 4px;
+}
+
+/* Tarjeta jugador */
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 8px 10px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.player-card img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.player-card .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-card .name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.player-card .meta {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* =====================================================
+   BOTONES DE ACCIÓN
+===================================================== */
+.guardar-btn {
+  width: 100%;
+  padding: 10px;
+  font-weight: 800;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.guardar-btn + .guardar-btn {
+  margin-top: 10px;
+}
+
+.guardar-btn.eliminar {
+  background: crimson;
+  color: white;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 768px) {
+  .alineacion-layout {
+    flex-direction: column;
+  }
+
+  .lineup-container,
+  .filters-section {
+    width: 100%;
+  }
+
+  .field-container {
+    height: 380px;
+  }
+}

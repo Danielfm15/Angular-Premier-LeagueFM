@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { ClasificacionLigaComponent } from './features/ligas/clasificacion-liga/clasificacion-liga.component';
+import { AlineacionComponent } from './features/ligas/alineacion/alineacion.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,12 @@ export const routes: Routes = [
     path: 'ligas/:idLiga/clasificacion',
     component: ClasificacionLigaComponent
   },
+  
+{
+    path: 'ligas/:idLiga/alineacion',
+    component: AlineacionComponent
+  },
+
 
 
   {
