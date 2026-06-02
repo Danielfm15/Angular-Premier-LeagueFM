@@ -302,23 +302,28 @@
    FORMACIONES
 ===================================================== */
 
+
 /* =========================
-   4-4-2
+   4-4-2 (CENTRADA Y AJUSTADA)
 ========================= */
-.field-container.formation-442 .player.gk  { top: 88%; left: 50%; }
+.field-container.formation-442 .player.gk  { top: 84%; left: 46.5%; }
 
-.field-container.formation-442 .player.lb  { top: 70%; left: 7%; }
-.field-container.formation-442 .player.lcb { top: 72%; left: 35%; }
-.field-container.formation-442 .player.rcb { top: 72%; left: 65%; }
-.field-container.formation-442 .player.rb  { top: 70%; left: 84%; }
+/* Defensas */
+.field-container.formation-442 .player.lb  { top: 71%; left: 10%; }
+.field-container.formation-442 .player.lcb { top: 73%; left: 30%; }
+.field-container.formation-442 .player.rcb { top: 73%; left: 63%; }
+.field-container.formation-442 .player.rb  { top: 71%; left: 80%; }
 
-.field-container.formation-442 .player.ldm { top: 52%; left: 30%; }
-.field-container.formation-442 .player.rdm { top: 52%; left: 70%; }
-.field-container.formation-442 .player.cam { top: 52%; left: 50%; }
+/* Medios (línea de 4) */
+.field-container.formation-442 .player.lw  { top: 38%; left: 10%; }  /* LM */
+.field-container.formation-442 .player.ldm { top: 48%; left: 30%; }  /* CM izq */
+.field-container.formation-442 .player.rdm { top: 48%; left: 63%; }  /* CM der */
+.field-container.formation-442 .player.cam { top: 38%; left: 80%; }  /* RM */
 
-.field-container.formation-442 .player.lw  { top: 22%; left: 35%; }
-.field-container.formation-442 .player.st  { top: 22%; left: 50%; }
-.field-container.formation-442 .player.rw  { top: 22%; left: 65%; }
+/* Delanteros (DOS PUNTAS) */
+.field-container.formation-442 .player.st  { top: 16%; left: 30%; }  /* ST izq */
+.field-container.formation-442 .player.rw  { top: 16%; left: 63%; }  /* ST der */
+
 
 /* =========================
    4-3-3
