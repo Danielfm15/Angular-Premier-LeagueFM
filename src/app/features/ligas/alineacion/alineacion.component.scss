@@ -36,7 +36,6 @@
   background: rgba(0, 82, 204, 0.95);
   color: #ffffff;
   padding: 14px 20px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,29 +67,33 @@
 }
 
 /* =====================================================
-   PANEL DERECHO – FILTROS Y JUGADORES
+   PANEL DERECHO – ESTILO PREMIER
 ===================================================== */
 .filters-section {
   width: 30%;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 20px;
-
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
   display: flex;
   flex-direction: column;
   gap: 18px;
-
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
 }
 
-/* Título */
+/* TÍTULO */
 .filters-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
+  letter-spacing: 0.3px;
   margin: 0;
+  text-shadow: 0 0 10px rgba(0, 255, 133, 0.25);
 }
 
-/* Grupos de filtros */
+/* =====================================================
+   FILTROS
+===================================================== */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -98,65 +101,85 @@
 }
 
 .filter-group label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
+  opacity: 0.85;
 }
 
 .filter-group input,
 .filter-group select {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.92);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 10px;
   font-size: 0.85rem;
-}
-
-/* Presupuesto */
-#presupuesto-restante {
-  font-weight: 800;
-  color: #00a651;
-  margin-bottom: 4px;
+  color: #1b1b1b;
 }
 
 /* =====================================================
-   LISTA DE JUGADORES (TARJETAS)
+   PRESUPUESTO – BADGE PREMIER
+===================================================== */
+.presupuesto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(0, 255, 133, 0.18);
+  color: #00ff85;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   LISTA DE JUGADORES
 ===================================================== */
 .player-list {
   flex: 1;
   overflow-y: auto;
-
   display: flex;
   flex-direction: column;
   gap: 10px;
-
-  padding-right: 4px;
 }
 
-/* Tarjeta jugador */
+.player-list .empty {
+  padding: 10px;
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+/* =====================================================
+   TARJETA DE JUGADOR (PANEL)
+===================================================== */
 .player-card {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 8px 10px;
-
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
-
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.2s ease;
 }
 
 .player-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(0, 255, 133, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
 .player-card img {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .player-card .info {
@@ -167,33 +190,154 @@
 .player-card .name {
   font-size: 0.9rem;
   font-weight: 700;
+  color: #ffffff;
 }
 
 .player-card .meta {
   font-size: 0.75rem;
-  color: #666;
+  opacity: 0.8;
+}
+
+/* =====================================================
+   PAGINACIÓN
+===================================================== */
+.paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+}
+
+.paginacion button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* =====================================================
    BOTONES DE ACCIÓN
 ===================================================== */
-.guardar-btn {
-  width: 100%;
-  padding: 10px;
-  font-weight: 800;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.guardar-btn + .guardar-btn {
-  margin-top: 10px;
+.guardar-btn {
+  padding: 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  background: #00ff85;
+  color: #1b1b1b;
 }
 
 .guardar-btn.eliminar {
-  background: crimson;
-  color: white;
+  background: rgba(255, 0, 0, 0.7);
+  color: #ffffff;
 }
+
+/* =====================================================
+   AJUSTE DE JUGADORES EN EL CAMPO (CLAVE)
+===================================================== */
+.field-container .player {
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+}
+
+.field-container .player-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.field-container .player-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.field-container .player-name {
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  max-width: 70px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   FORMACIONES
+===================================================== */
+
+/* =========================
+   4-4-2
+========================= */
+.field-container.formation-442 .player.gk  { top: 88%; left: 50%; }
+
+.field-container.formation-442 .player.lb  { top: 70%; left: 7%; }
+.field-container.formation-442 .player.lcb { top: 72%; left: 35%; }
+.field-container.formation-442 .player.rcb { top: 72%; left: 65%; }
+.field-container.formation-442 .player.rb  { top: 70%; left: 84%; }
+
+.field-container.formation-442 .player.ldm { top: 52%; left: 30%; }
+.field-container.formation-442 .player.rdm { top: 52%; left: 70%; }
+.field-container.formation-442 .player.cam { top: 52%; left: 50%; }
+
+.field-container.formation-442 .player.lw  { top: 22%; left: 35%; }
+.field-container.formation-442 .player.st  { top: 22%; left: 50%; }
+.field-container.formation-442 .player.rw  { top: 22%; left: 65%; }
+
+/* =========================
+   4-3-3
+========================= */
+.field-container.formation-433 .player.gk  { top: 92%; left: 50%; }
+
+.field-container.formation-433 .player.lb  { top: 72%; left: 12%; }
+.field-container.formation-433 .player.lcb { top: 75%; left: 35%; }
+.field-container.formation-433 .player.rcb { top: 75%; left: 65%; }
+.field-container.formation-433 .player.rb  { top: 72%; left: 88%; }
+
+.field-container.formation-433 .player.ldm { top: 55%; left: 50%; }
+.field-container.formation-433 .player.cam { top: 50%; left: 30%; }
+.field-container.formation-433 .player.rdm { top: 50%; left: 70%; }
+
+.field-container.formation-433 .player.lw  { top: 22%; left: 20%; }
+.field-container.formation-433 .player.st  { top: 18%; left: 50%; }
+.field-container.formation-433 .player.rw  { top: 22%; left: 80%; }
+
 
 /* =====================================================
    RESPONSIVE
