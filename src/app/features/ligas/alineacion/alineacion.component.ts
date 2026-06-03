@@ -22,6 +22,8 @@ interface SlotState {
   jugador: JugadorAlineacion | null;
 }
 
+type FormacionId = '442' | '433' | '4213';
+
 @Component({
   selector: 'app-alineacion',
   standalone: true,
@@ -42,17 +44,17 @@ export class AlineacionComponent implements OnInit {
   puedeEditar = true;
   jornadaEditable: number | null = null;
 
-  // ✅ FORMACIÓN ACTUAL (USADA POR EL HTML + SCSS)
-  formacion: '442' | '433' = '442';
+  // Formación actual
+  formacion: FormacionId = '442';
 
-  // Jugadores + filtros
+  // Jugadores (source of truth)
   jugadores: JugadorAlineacion[] = [];
-  jugadoresFiltrados: JugadorAlineacion[] = [];
 
+  // Filtros
   filtroNombre = '';
   filtroPosicion = '';
 
-  // Selección actual (panel derecho)
+  // Selección actual
   jugadorSeleccionado: JugadorAlineacion | null = null;
 
   // Slots del campo
@@ -88,39 +90,74 @@ export class AlineacionComponent implements OnInit {
     this.inicializar();
   }
 
+  // =========================
+  // GETTERS DERIVADOS (CLAVE)
+  // =========================
+
+  get idsJugadoresEnCampo(): Set<string> {
+    const ids = new Set<string>();
+    (Object.keys(this.slots) as SlotId[]).forEach(slot => {
+      const jugador = this.slots[slot].jugador;
+      if (jugador) ids.add(String(jugador.id_jugador));
+    });
+    return ids;
+  }
+
+  get jugadoresFiltrados(): JugadorAlineacion[] {
+    const nombre = this.filtroNombre.trim().toLowerCase();
+    const pos = this.filtroPosicion;
+    const idsEnCampo = this.idsJugadoresEnCampo;
+
+    return this.jugadores.filter(j => {
+      const okNombre = !nombre || j.nombre.toLowerCase().includes(nombre);
+      const okPos = !pos || j.posicion === pos;
+      const okDisponible = !idsEnCampo.has(String(j.id_jugador));
+      return okNombre && okPos && okDisponible;
+    });
+  }
+
+  // =========================
+  // INICIALIZACIÓN ROBUSTA
+  // =========================
+
   private inicializar(): void {
     this.loading = true;
 
     this.alineacionService.obtenerJornadaEditable().subscribe({
-      next: (res) => {
+      next: res => {
         this.jornadaEditable = res.jornadaEditable;
-
-        this.alineacionService.verificarEdicionHabilitada().subscribe({
-          next: (perm) => {
-            this.puedeEditar = perm.edicionHabilitada;
-            this.cargarJugadores();
-          },
-          error: (err) => {
-            console.error('Error verificando permisos', err);
-            this.loading = false;
-          },
-        });
+        this.verificarPermisosYCargarJugadores();
       },
-      error: (err) => {
+      error: err => {
         console.error('Error obteniendo jornada editable', err);
-        this.loading = false;
+        this.jornadaEditable = null;
+        this.verificarPermisosYCargarJugadores();
+      },
+    });
+  }
+
+  private verificarPermisosYCargarJugadores(): void {
+    this.alineacionService.verificarEdicionHabilitada().subscribe({
+      next: perm => {
+        this.puedeEditar = perm.edicionHabilitada;
+        this.cargarJugadores();
+      },
+      error: err => {
+        console.error('Error verificando permisos', err);
+        this.puedeEditar = true; // fallback desarrollo
+        this.cargarJugadores();
       },
     });
   }
 
   private cargarJugadores(): void {
     this.alineacionService.obtenerJugadores().subscribe({
-      next: (data) => {
+      next: data => {
         this.jugadores = data;
-        this.aplicarFiltros();
+        this.paginaActual = 1;
         this.loading = false;
       },
-      error: (err) => {
+      error: err => {
         console.error('Error cargando jugadores', err);
         this.loading = false;
       },
@@ -143,15 +180,6 @@ export class AlineacionComponent implements OnInit {
   }
 
   aplicarFiltros(): void {
-    const nombre = this.filtroNombre.trim().toLowerCase();
-    const pos = this.filtroPosicion;
-
-    this.jugadoresFiltrados = this.jugadores.filter((j) => {
-      const okNombre = !nombre || j.nombre.toLowerCase().includes(nombre);
-      const okPos = !pos || j.posicion === pos;
-      return okNombre && okPos;
-    });
-
     this.paginaActual = 1;
   }
 
@@ -193,18 +221,26 @@ export class AlineacionComponent implements OnInit {
 
   colocarEnSlot(slot: SlotId): void {
     if (!this.puedeEditar) return;
+
+    const slotActual = this.slots[slot].jugador;
+
+    if (!this.jugadorSeleccionado && slotActual) {
+      this.slots[slot].jugador = null;
+      return;
+    }
+
     if (!this.jugadorSeleccionado) return;
 
     const jugador = this.jugadorSeleccionado;
 
     const permitidos = this.slotPermitidoParaPosicion[jugador.posicion] ?? [];
     if (!permitidos.includes(slot)) {
-      console.warn(`⛔ ${jugador.posicion} no puede ir en ${slot}`);
+      // aquí puedes enganchar el sistema de avisos visuales
       return;
     }
 
     const yaAsignado = (Object.keys(this.slots) as SlotId[])
-      .find(s => this.slots[s].jugador?.id_jugador === jugador.id_jugador);
+      .find(s => String(this.slots[s].jugador?.id_jugador) === String(jugador.id_jugador));
 
     if (yaAsignado) {
       this.slots[yaAsignado].jugador = null;
@@ -220,6 +256,6 @@ export class AlineacionComponent implements OnInit {
   }
 
   esSeleccionado(j: JugadorAlineacion): boolean {
-    return this.jugadorSeleccionado?.id_jugador === j.id_jugador;
+    return String(this.jugadorSeleccionado?.id_jugador) === String(j.id_jugador);
   }
 }

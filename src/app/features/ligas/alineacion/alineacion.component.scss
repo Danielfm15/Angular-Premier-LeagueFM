@@ -24,22 +24,37 @@
 /* =====================================================
    CAMPO / ALINEACIÓN
 ===================================================== */
+
 .lineup-container {
   width: 70%;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+
+  /* Más presencia y separación */
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
+
+
 .lineup-header {
-  background: rgba(0, 82, 204, 0.95);
+  background: linear-gradient(
+    to bottom,
+    #4b003f 0%,
+    #6a0055 45%,
+    #8a006c 100%
+  );
+
   color: #ffffff;
   padding: 14px 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 
 .lineup-header h2 {
   margin: 0;
@@ -52,25 +67,44 @@
   margin-right: 6px;
 }
 
+
 .formation-dropdown {
+  font-family: "Premier", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
   padding: 6px 10px;
   border-radius: 6px;
   border: none;
-  font-size: 0.85rem;
 }
 
+
 /* Campo */
+
 .field-container {
   height: 480px;
-  background-color: #00b140;
   position: relative;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(0, 0, 0, 0.18) 100%
+    ),
+    #00b140;
+
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
 }
+
+
 
 /* =====================================================
    PANEL DERECHO – ESTILO PREMIER
 ===================================================== */
 .filters-section {
   width: 30%;
+  font-family: "Premier", system-ui, sans-serif;
   padding: 22px;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(10px);
@@ -115,6 +149,43 @@
   font-size: 0.85rem;
   color: #1b1b1b;
 }
+
+/* =====================================================
+   PANEL DERECHO – INPUTS Y SELECTS CON FUENTE PREMIER
+===================================================== */
+
+.filters-section {
+  font-family: "Premier", system-ui, sans-serif;
+}
+
+/* Labels */
+.filters-section .filter-group label {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Input y select */
+.filters-section input,
+.filters-section select {
+  font-family: "Premier", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Placeholder del input */
+.filters-section input::placeholder {
+  font-family: "Premier", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Opciones del desplegable */
+.filters-section select option {
+  font-family: "Premier", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
 
 /* =====================================================
    PRESUPUESTO – BADGE PREMIER
@@ -166,6 +237,13 @@
     box-shadow 0.15s ease,
     border-color 0.2s ease;
 }
+
+.player-card.selected {
+  background: rgba(0, 255, 133, 0.18);
+  border-color: rgba(0, 255, 133, 0.8);
+  box-shadow: 0 0 0 2px rgba(0, 255, 133, 0.35);
+}
+
 
 .player-card:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -262,17 +340,25 @@
   position: absolute;
 }
 
+/* Slot disponible (hover) */
+.field-container .player:hover .player-img {
+  box-shadow:
+    0 0 0 2px rgba(0, 255, 133, 0.7),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+
 .field-container .player-img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border: 2px solid #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .field-container .player-img img {
@@ -297,51 +383,199 @@
   text-overflow: ellipsis;
 }
 
+/* Slot ocupado */
+.field-container .player.ocupado .player-img {
+  border-color: #00ff85;
+  box-shadow:
+    0 0 0 2px rgba(0, 255, 133, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
 
 /* =====================================================
    FORMACIONES
 ===================================================== */
 
 
-/* =========================
+/*=========================
    4-4-2 (CENTRADA Y AJUSTADA)
-========================= */
-.field-container.formation-442 .player.gk  { top: 84%; left: 46.5%; }
+=========================*/
+.field-container.formation-442 .player.gk  { top: 84%; left: 46%; }
 
 /* Defensas */
 .field-container.formation-442 .player.lb  { top: 71%; left: 10%; }
 .field-container.formation-442 .player.lcb { top: 73%; left: 30%; }
-.field-container.formation-442 .player.rcb { top: 73%; left: 63%; }
+.field-container.formation-442 .player.rcb { top: 73%; left: 61%; }
 .field-container.formation-442 .player.rb  { top: 71%; left: 80%; }
 
 /* Medios (línea de 4) */
 .field-container.formation-442 .player.lw  { top: 38%; left: 10%; }  /* LM */
 .field-container.formation-442 .player.ldm { top: 48%; left: 30%; }  /* CM izq */
-.field-container.formation-442 .player.rdm { top: 48%; left: 63%; }  /* CM der */
+.field-container.formation-442 .player.rdm { top: 48%; left: 61%; }  /* CM der */
 .field-container.formation-442 .player.cam { top: 38%; left: 80%; }  /* RM */
 
 /* Delanteros (DOS PUNTAS) */
-.field-container.formation-442 .player.st  { top: 16%; left: 30%; }  /* ST izq */
-.field-container.formation-442 .player.rw  { top: 16%; left: 63%; }  /* ST der */
+.field-container.formation-442 .player.st  { top: 16%; left: 35%; }  /* ST izq */
+.field-container.formation-442 .player.rw  { top: 16%; left: 56%; }  /* ST der */
 
 
 /* =========================
    4-3-3
 ========================= */
-.field-container.formation-433 .player.gk  { top: 92%; left: 50%; }
+.field-container.formation-433 .player.gk  { top: 84%; left: 46%; }
 
-.field-container.formation-433 .player.lb  { top: 72%; left: 12%; }
-.field-container.formation-433 .player.lcb { top: 75%; left: 35%; }
-.field-container.formation-433 .player.rcb { top: 75%; left: 65%; }
-.field-container.formation-433 .player.rb  { top: 72%; left: 88%; }
+/* Defensas (IGUAL QUE 4-4-2) */
+.field-container.formation-433 .player.lb  { top: 71%; left: 10%; }
+.field-container.formation-433 .player.lcb { top: 73%; left: 30%; }
+.field-container.formation-433 .player.rcb { top: 73%; left: 61%; }
+.field-container.formation-433 .player.rb  { top: 71%; left: 80%; }
 
-.field-container.formation-433 .player.ldm { top: 55%; left: 50%; }
-.field-container.formation-433 .player.cam { top: 50%; left: 30%; }
-.field-container.formation-433 .player.rdm { top: 50%; left: 70%; }
+/* Medios (LOS 3 A LA MISMA ALTURA) */
+.field-container.formation-433 .player.ldm { top: 50%; left: 25%; } /* interior izq */
+.field-container.formation-433 .player.cam { top: 50%; left: 46%; } /* pivote/mixto */
+.field-container.formation-433 .player.rdm { top: 50%; left: 67%; } /* interior der */
 
-.field-container.formation-433 .player.lw  { top: 22%; left: 20%; }
-.field-container.formation-433 .player.st  { top: 18%; left: 50%; }
-.field-container.formation-433 .player.rw  { top: 22%; left: 80%; }
+/* Delanteros */
+.field-container.formation-433 .player.lw  { top: 22%; left: 15%; } /* extremo izq */
+.field-container.formation-433 .player.st  { top: 16%; left: 46%; } /* 9 */
+.field-container.formation-433 .player.rw  { top: 22%; left: 77%; } /* extremo der */
+
+/* =========================
+   4-2-1-3 (DERIVADA DE TU 4-4-2)
+========================= */
+.field-container.formation-4213 .player.gk  { top: 84%; left: 46%; }
+
+/* Defensas */
+.field-container.formation-4213 .player.lb  { top: 71%; left: 10%; }
+.field-container.formation-4213 .player.lcb { top: 73%; left: 30%; }
+.field-container.formation-4213 .player.rcb { top: 73%; left: 61%; }
+.field-container.formation-4213 .player.rb  { top: 71%; left: 80%; }
+
+/* Doble pivote */
+.field-container.formation-4213 .player.ldm { top: 56%; left: 32%; }
+.field-container.formation-4213 .player.rdm { top: 56%; left: 60%; }
+
+/* Mediapunta */
+.field-container.formation-4213 .player.cam { top: 42%; left: 46%; }
+
+/* Tridente ofensivo */
+.field-container.formation-4213 .player.lw { top: 18%; left: 14%; }
+.field-container.formation-4213 .player.st { top: 14%; left: 46%; }
+.field-container.formation-4213 .player.rw { top: 18%; left: 78%; }
+
+/* =====================================================
+   LÍNEAS DEL CAMPO DE FÚTBOL
+===================================================== */
+
+.field-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* no molesta al click de jugadores */
+}
+
+/* Línea central */
+.field-lines::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Círculo central */
+.center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Punto central */
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Área grande (arriba) */
+.penalty-box-top {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  width: 40%;
+  height: 18%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top: none;
+}
+
+/* Área grande (abajo) */
+.penalty-box-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  width: 40%;
+  height: 18%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: none;
+}
+
+/* Área pequeña (arriba) */
+.goal-box-top {
+  position: absolute;
+  top: 0;
+  left: 40%;
+  width: 20%;
+  height: 8%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top: none;
+}
+
+/* Área pequeña (abajo) */
+.goal-box-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 40%;
+  width: 20%;
+  height: 8%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-bottom: none;
+}
+
+/* =====================================================
+   AVISO DE ACCIÓN NO PERMITIDA / FEEDBACK
+===================================================== */
+.aviso-campo {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+
+  font-family: "Premier", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
 
 
 /* =====================================================
