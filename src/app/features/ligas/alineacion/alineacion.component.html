@@ -161,15 +161,17 @@
 
 <!-- Filtro puntos mínimos -->
 <div class="filter-group">
-  <label>Puntos mínimos: {{ filtroPuntosMin }}</label>
-  <input
-    type="numer"
-    min="0"
-    max="1000"
-    step="1"
-    [(ngModel)]="filtroPuntosMin"
-    (input)="aplicarFiltros()"
-  />
+  <label>Puntos mínimos</label>
+  <div class="puntos-filter">
+    
+    <input
+      type="number"
+      min="0"
+      max="1000"
+      [(ngModel)]="filtroPuntosMin"
+      (input)="aplicarFiltros()"
+    />
+  </div>
 </div>
 
       <!-- PRESUPUESTO -->

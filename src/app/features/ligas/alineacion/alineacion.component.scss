@@ -477,6 +477,75 @@
 .field-container.formation-4213 .player.st { top: 14%; left: 46%; }
 .field-container.formation-4213 .player.rw { top: 18%; left: 78%; }
 
+/* =========================
+   4-2-3-1
+========================= */
+.field-container.formation-4231 .player.gk  { top: 84%; left: 46%; }
+
+/* Defensas */
+.field-container.formation-4231 .player.lb  { top: 71%; left: 10%; }
+.field-container.formation-4231 .player.lcb { top: 73%; left: 30%; }
+.field-container.formation-4231 .player.rcb { top: 73%; left: 61%; }
+.field-container.formation-4231 .player.rb  { top: 71%; left: 80%; }
+
+/* Doble pivote */
+.field-container.formation-4231 .player.ldm { top: 58%; left: 32%; }
+.field-container.formation-4231 .player.rdm { top: 58%; left: 60%; }
+
+/* Línea de 3 mediapuntas */
+.field-container.formation-4231 .player.lw  { top: 38%; left: 15%; }
+.field-container.formation-4231 .player.cam { top: 36%; left: 46%; }
+.field-container.formation-4231 .player.rw  { top: 38%; left: 77%; }
+
+/* Delantero centro */
+.field-container.formation-4231 .player.st  { top: 16%; left: 46%; }
+
+
+/* =========================
+   3-5-2
+========================= */
+.field-container.formation-352 .player.gk  { top: 84%; left: 46%; }
+
+/* Tres centrales */
+.field-container.formation-352 .player.lcb { top: 72%; left: 22%; }
+.field-container.formation-352 .player.rcb { top: 72%; left: 70%; }
+.field-container.formation-352 .player.lb  { top: 72%; left: 46%; } /* CB central */
+
+/* Carrileros (usan rb y rb como carrileros) */
+.field-container.formation-352 .player.lw  { top: 50%; left: 8%;  } /* carrilero izq */
+.field-container.formation-352 .player.rw  { top: 50%; left: 84%; } /* carrilero der */
+
+/* Tres centrocampistas */
+.field-container.formation-352 .player.ldm { top: 52%; left: 28%; }
+.field-container.formation-352 .player.cam { top: 48%; left: 46%; }
+.field-container.formation-352 .player.rdm { top: 52%; left: 64%; }
+
+/* Dos delanteros */
+.field-container.formation-352 .player.st  { top: 16%; left: 35%; }
+.field-container.formation-352 .player.rb  { top: 16%; left: 57%; } /* ST der */
+
+
+/* =========================
+   5-3-2
+========================= */
+.field-container.formation-532 .player.gk  { top: 84%; left: 46%; }
+
+/* Cinco defensas */
+.field-container.formation-532 .player.lb  { top: 71%; left: 6%;  } /* carrilero izq */
+.field-container.formation-532 .player.lcb { top: 74%; left: 24%; }
+.field-container.formation-532 .player.rcb { top: 74%; left: 68%; }
+.field-container.formation-532 .player.rb  { top: 71%; left: 86%; } /* carrilero der */
+.field-container.formation-532 .player.cam { top: 70%; left: 46%; } /* CB central */
+
+/* Tres centrocampistas */
+.field-container.formation-532 .player.ldm { top: 50%; left: 25%; }
+.field-container.formation-532 .player.rdm { top: 50%; left: 67%; }
+.field-container.formation-532 .player.lw  { top: 50%; left: 46%; } /* MC central */
+
+/* Dos delanteros */
+.field-container.formation-532 .player.st  { top: 16%; left: 35%; }
+.field-container.formation-532 .player.rw  { top: 16%; left: 57%; }
+
 /* =====================================================
    LÍNEAS DEL CAMPO DE FÚTBOL
 ===================================================== */
