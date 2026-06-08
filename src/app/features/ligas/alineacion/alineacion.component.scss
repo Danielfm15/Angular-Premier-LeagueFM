@@ -334,6 +334,14 @@
   color: #ffffff;
 }
 
+.guardar-btn {
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
 /* =====================================================
    AJUSTE DE JUGADORES EN EL CAMPO (CLAVE)
 ===================================================== */

@@ -13,6 +13,7 @@ export interface JugadorAlineacion {
 
 export interface AlineacionItemBackend {
   id_registro: number;
+  id_jugador: number;
   nombre: string;
   posicion: string;             // posición real del jugador (Portero/Defensa/...)
   equipo: string;
