@@ -176,6 +176,6 @@ verClasificacion(idLiga: number): void {
 
 
 irAlineacion(idLiga: number): void {
-  console.log('Ir a alineación de la liga', idLiga);
+  this.router.navigate(['/ligas', idLiga, 'alineacion']);
 }
 }

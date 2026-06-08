@@ -77,9 +77,9 @@ export class LoginComponent {
       });
     } else {
       this.auth.login(email, contrasena).subscribe({
-        next: (user) => {
+        next: ({ usuario }) => {
           this.store.loading.set(false);
-          this.store.setUser(user);
+          this.store.setUser(usuario);
 
           // Antes ibas a principal.html; en Angular iremos a una ruta real (por ahora /jornadas que ya existe)
           this.router.navigateByUrl('/index');
