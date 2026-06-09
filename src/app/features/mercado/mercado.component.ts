@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -37,21 +37,21 @@ export class MercadoComponent implements OnInit {
     puntosMinimos: undefined as number | undefined,
   };
 
-  // ✅ Paginación
   page = 1;
   pageSize = 10;
   total = 0;
 
-  constructor(private mercadoService: MercadoService) {}
+  constructor(
+    private mercadoService: MercadoService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.buscar(true);
   }
 
   buscar(resetPage = false): void {
-    if (resetPage) {
-      this.page = 1;
-    }
+    if (resetPage) this.page = 1;
 
     this.loading = true;
 
@@ -62,10 +62,12 @@ export class MercadoComponent implements OnInit {
           this.jugadores = res.data;
           this.total = res.total;
           this.loading = false;
+          this.cdr.detectChanges();
         },
         error: err => {
           console.error('Error mercado', err);
           this.loading = false;
+          this.cdr.detectChanges();
         }
       });
   }
@@ -84,7 +86,6 @@ export class MercadoComponent implements OnInit {
     }
   }
 
-  // ✅ Getter para usar en el template
   get totalPaginas(): number {
     return Math.ceil(this.total / this.pageSize);
   }

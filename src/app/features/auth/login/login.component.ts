@@ -3,7 +3,6 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { AuthStore } from '../../../core/services/auth.store';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +14,14 @@ import { AuthStore } from '../../../core/services/auth.store';
 export class LoginComponent {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
-  private store = inject(AuthStore);
   private router = inject(Router);
 
   isRegisterMode = signal(false);
   showPassword = signal(false);
   showSuccess = signal(false);
 
-  errorMsg = computed(() => this.store.error());
-  loading = computed(() => this.store.loading());
+  errorMsg = computed(() => this.auth.error());
+  loading = computed(() => this.auth.loading());
 
   form = this.fb.group({
     nombre: [''],
@@ -31,13 +29,10 @@ export class LoginComponent {
     contrasena: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  toggleRegisterMode(value: boolean) {
+    toggleRegisterMode(value: boolean) {
     this.isRegisterMode.set(value);
     this.showSuccess.set(false);
-    this.store.error.set(null as any);
-    //this.store.clear();
-
-    // Reseteo similar a tu form.reset()
+    this.auth.error.set(null);
     this.form.reset({ nombre: '', email: '', contrasena: '' });
   }
 
@@ -49,7 +44,7 @@ export class LoginComponent {
     const { nombre, email, contrasena } = this.form.value;
 
     if (!email || !contrasena || (this.isRegisterMode() && !nombre)) {
-      this.store.setError('❗ Por favor, completa todos los campos.');
+      this.auth.setError('❗ Por favor, completa todos los campos.');
       return;
     }
 
@@ -57,36 +52,36 @@ export class LoginComponent {
     if (this.isRegisterMode()) {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$/i;
       if (!emailRegex.test(email)) {
-        this.store.setError('📧 El correo debe ser de Gmail, Hotmail o Outlook.');
+        this.auth.setError('📧 El correo debe ser de Gmail, Hotmail o Outlook.');
         return;
       }
     }
 
-    this.store.loading.set(true);
+    this.auth.loading.set(true);
 
     if (this.isRegisterMode()) {
       this.auth.registro(nombre!, email, contrasena).subscribe({
         next: () => {
-          this.store.loading.set(false);
+          this.auth.loading.set(false);
           this.showSuccess.set(true);
         },
         error: (err) => {
-          this.store.loading.set(false);
-          this.store.setError(this.translateBackendError(err?.error?.error));
+          this.auth.loading.set(false);
+          this.auth.setError(this.translateBackendError(err?.error?.error));
         }
       });
     } else {
       this.auth.login(email, contrasena).subscribe({
         next: ({ usuario }) => {
-          this.store.loading.set(false);
-          this.store.setUser(usuario);
+          this.auth.loading.set(false);
+          this.auth.setUser(usuario);
 
           // Antes ibas a principal.html; en Angular iremos a una ruta real (por ahora /jornadas que ya existe)
           this.router.navigateByUrl('/index');
         },
         error: (err) => {
-          this.store.loading.set(false);
-          this.store.setError(this.translateBackendError(err?.error?.error));
+          this.auth.loading.set(false);
+          this.auth.setError(this.translateBackendError(err?.error?.error));
         }
       });
     }

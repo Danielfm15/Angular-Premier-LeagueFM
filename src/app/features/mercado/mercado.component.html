@@ -2,6 +2,9 @@
 <app-main-nav></app-main-nav>
 
 <main class="market-container">
+
+  <h1 class="market-title">Mercado de Jugadores</h1>
+
   <!-- Filtros -->
   <div class="filters">
     <input
@@ -10,29 +13,25 @@
       [(ngModel)]="filtros.nombre"
       (input)="buscar(true)"
     />
-
     <input
       type="text"
       placeholder="Club"
       [(ngModel)]="filtros.club"
       (input)="buscar(true)"
     />
-
     <select [(ngModel)]="filtros.posicion" (change)="buscar(true)">
-      <option value="">Todas</option>
+      <option value="">Todas las posiciones</option>
       <option value="Portero">Portero</option>
       <option value="Defensa">Defensa</option>
       <option value="Centrocampista">Centrocampista</option>
       <option value="Delantero">Delantero</option>
     </select>
-
     <input
       type="number"
       placeholder="Precio máximo (€)"
       [(ngModel)]="filtros.valorMaximo"
       (input)="buscar(true)"
     />
-
     <input
       type="number"
       placeholder="Puntos mínimos"
@@ -52,19 +51,19 @@
     <span>Estado</span>
   </div>
 
-  <!-- Loading -->
-  <div *ngIf="loading" class="loading">Cargando mercado…</div>
+  <!-- Loading skeletons -->
+  <div class="loading" *ngIf="loading">
+    <div class="loading-row" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"></div>
+  </div>
 
   <!-- Jugadores -->
   <div class="players" *ngIf="!loading">
     <div class="player-row" *ngFor="let jugador of jugadores">
       <img class="player-img" [src]="getFotoJugador(jugador)" />
-
       <div class="cell name">{{ jugador.nombre }}</div>
       <div class="cell position">{{ jugador.posicion }}</div>
       <div class="cell price">{{ jugador.precio | number }} €</div>
-      <div class="cell points">{{ jugador.puntos }}</div>
-
+      <div class="cell points">⭐ {{ jugador.puntos }}</div>
       <img class="club-img" [src]="getEscudo(jugador.club)" />
       <img class="estado-img" [src]="getEstadoIcon(jugador.estado)" />
     </div>
@@ -73,21 +72,14 @@
   <!-- Paginación -->
   <div class="pagination" *ngIf="!loading && total > pageSize">
     <button (click)="paginaAnterior()" [disabled]="page === 1">
-      « Anterior
+      ◀ Anterior
     </button>
-
-  <span>
-  Página {{ page }} de {{ totalPaginas }}
-</span>
-
-
-    <button
-      (click)="paginaSiguiente()"
-      [disabled]="page * pageSize >= total"
-    >
-      Siguiente »
+    <span>Página {{ page }} de {{ totalPaginas }}</span>
+    <button (click)="paginaSiguiente()" [disabled]="page * pageSize >= total">
+      Siguiente ▶
     </button>
   </div>
+
 </main>
 
 <app-footer></app-footer>

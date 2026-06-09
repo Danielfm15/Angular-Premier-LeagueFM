@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthStore } from '../../../core/services/auth.store';
+import { AuthService } from '../../../core/services/auth.service';
 
 type Club = { id: string; nombre: string; url: string; img: string };
 
@@ -13,8 +13,8 @@ type Club = { id: string; nombre: string; url: string; img: string };
   styleUrls: ['./premier-header.component.scss'],
 })
 export class PremierHeaderComponent {
-  private auth = inject(AuthStore);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   // Misma lista que tu script (20 clubes) [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptCreadorCabecera.js)
   clubs: Club[] = [
@@ -40,11 +40,10 @@ export class PremierHeaderComponent {
     { id: 'wolves', nombre: 'Wolves', url: 'https://www.wolves.co.uk', img: 'Wolves.png' },
   ];
 
-  isLoggedIn = computed(() => this.auth.isLoggedIn());
+  isLoggedIn = computed(() => this.authService.isLoggedIn());
 
   logout() {
-    // Equivalente a tu limpiar sessionStorage + redirect login [3](https://grupporealemutua-my.sharepoint.com/personal/daniel_fernandez_munoz_realeites_com/Documents/Archivos%20de%20Microsoft%C2%A0Copilot%20Chat/scriptCreadorCabecera.js)
-    this.auth.clear();
+    this.authService.logout();    // limpia sessionStorage
     this.router.navigateByUrl('/login');
   }
 }

@@ -14,7 +14,7 @@
 
         <!-- Login / Logout dinámico -->
         <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
-        <a *ngIf="isLoggedIn()" (click)="logout()" href="#">Cerrar sesión</a>
+        <a *ngIf="isLoggedIn()" (click)="logout()" class="logout-link">Cerrar sesión</a>
 
         <!-- Privadas -->
         <a routerLink="/ligas">Ligas</a>

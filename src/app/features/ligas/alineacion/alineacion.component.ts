@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { LigasService } from '../../../core/services/ligas.service';
 
 import {
   AlineacionService,
@@ -51,6 +52,7 @@ export class AlineacionComponent implements OnInit {
 
   formacion: FormacionId = '442';
   presupuestoInicial = 300_000_000;
+  nombreLiga: string = '';
 
   jugadores: JugadorAlineacion[] = [];
 
@@ -99,10 +101,53 @@ export class AlineacionComponent implements OnInit {
     '532':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'cam', 'ldm', 'rdm', 'lw', 'rw', 'st'],
   };
 
+  // Qué tipo de jugador acepta cada slot según la formación
+private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<SlotId, string[]>>> = {
+  '442': {
+    gk:  ['Portero'],
+    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+    lw:  ['Centrocampista'], ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
+    st:  ['Delantero'], rw: ['Delantero'],
+  },
+  '433': {
+    gk:  ['Portero'],
+    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+    ldm: ['Centrocampista'], cam: ['Centrocampista'], rdm: ['Centrocampista'],
+    lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
+  },
+  '4213': {
+    gk:  ['Portero'],
+    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+    ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
+    lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
+  },
+  '4231': {
+    gk:  ['Portero'],
+    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+    ldm: ['Centrocampista'], rdm: ['Centrocampista'],
+    lw:  ['Centrocampista'], cam: ['Centrocampista'], rw: ['Centrocampista'],
+    st:  ['Delantero'],
+  },
+  '352': {
+    gk:  ['Portero'],
+    lcb: ['Defensa'], lb: ['Defensa'], rcb: ['Defensa'],
+    lw:  ['Centrocampista'], ldm: ['Centrocampista'], cam: ['Centrocampista'],
+    rdm: ['Centrocampista'], rw: ['Centrocampista'],
+    st:  ['Delantero'], rb: ['Delantero'],
+  },
+  '532': {
+    gk:  ['Portero'],
+    lb:  ['Defensa'], lcb: ['Defensa'], cam: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+    ldm: ['Centrocampista'], lw: ['Centrocampista'], rdm: ['Centrocampista'],
+    st:  ['Delantero'], rw: ['Delantero'],
+  },
+};
+
   constructor(
     private route: ActivatedRoute,
     private alineacionService: AlineacionService,
     private authService: AuthService,
+    private ligasService: LigasService,
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +155,11 @@ export class AlineacionComponent implements OnInit {
     const user = this.authService.getCurrentUser();
     if (!user) return;
     this.usuarioId = user.id_usuario;
+     // Cargar nombre de la liga
+  this.ligasService.obtenerClasificacionLiga(this.idLiga).subscribe({
+    next: res => this.nombreLiga = res.nombre_liga,
+    error: err => console.error('Error cargando nombre de liga', err),
+  });
     this.inicializar();
   }
 
@@ -438,4 +488,29 @@ export class AlineacionComponent implements OnInit {
       this.timeoutAviso = null;
     }, 1500);
   }
+
+  cambiarFormacion(nuevaFormacion: FormacionId): void {
+  const mapaNuevo = this.posicionPorSlotEnFormacion[nuevaFormacion];
+  let jugadoresQuitados = 0;
+
+  (Object.keys(this.slots) as SlotId[]).forEach(slot => {
+    const jugador = this.slots[slot].jugador;
+    if (!jugador) return;
+
+    const posicionesPermitidas = mapaNuevo[slot] ?? [];
+    if (!posicionesPermitidas.includes(jugador.posicion)) {
+      this.slots[slot].jugador = null;
+      jugadoresQuitados++;
+    }
+  });
+
+  this.formacion = nuevaFormacion;
+
+  if (jugadoresQuitados > 0) {
+    this.mostrarAviso(
+      `${jugadoresQuitados} jugador${jugadoresQuitados === 1 ? '' : 'es'} retirado${jugadoresQuitados === 1 ? '' : 's'} por cambio de formación`,
+      'error'
+    );
+  }
+}
 }

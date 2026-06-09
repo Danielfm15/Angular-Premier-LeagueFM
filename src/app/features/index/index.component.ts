@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { PremierHeaderComponent } from '../../shared/components/premier-header/premier-header.component';
-import { AuthStore } from '../../core/services/auth.store';
+import { AuthService } from '../../core/services/auth.service';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { MainNavComponent } from '../../shared/components/main-nav/main-nav.component';
 
@@ -14,18 +14,17 @@ import { MainNavComponent } from '../../shared/components/main-nav/main-nav.comp
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent {
+  private authService = inject(AuthService);
+  private router      = inject(Router);
 
-  private authStore = inject(AuthStore);
-
-  /** Saber si el usuario está logueado */
   isLoggedIn(): boolean {
-    return this.authStore.isLoggedIn();
+    return this.authService.isLoggedIn();
   }
 
-  /** Cerrar sesión */
   logout(): void {
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-      this.authStore.clear();
-    }
+    
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
+    
   }
 }

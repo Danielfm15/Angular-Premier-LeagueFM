@@ -1,22 +1,22 @@
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;        // ← ocupa toda la pantalla
 }
 
+.main-content {
+  flex: 1;                  // ← se expande para llenar el espacio disponible
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(90deg, #00f2c1, #00bce9);
+}
 
 /* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* Contenedor principal */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(90deg, #00f2c1, #00bce9);
 }
 
 /* ===========================
@@ -64,22 +64,23 @@
 /* Hero nav */
 .hero-nav {
   
-display: inline-flex;      // ✅ ya no ocupa todo el ancho
+display: inline-flex;      
   background-color: white;
-  border-radius: 30px;       // ✅ más elegante
+  border-radius: 30px;       
   overflow: hidden;
   margin-top: 20px;
-  padding: 4px;              // ✅ reduce tamaño visual
+  padding: 4px;              
 
 
   a {
     
- padding: 8px 16px;         // ✅ menos “tocho”
+ padding: 8px 16px;         
   text-decoration: none;
   color: #37003c;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
+  cursor: pointer;
 
 
     &.active,

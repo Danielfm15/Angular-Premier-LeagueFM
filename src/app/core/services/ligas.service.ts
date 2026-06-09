@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Liga } from '../models/liga.model';
 
+
 @Injectable({
   providedIn: 'root',
 })
