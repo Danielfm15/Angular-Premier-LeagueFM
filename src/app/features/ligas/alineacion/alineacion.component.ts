@@ -83,13 +83,6 @@ export class AlineacionComponent implements OnInit {
     rw:  { slot: 'rw',  jugador: null },
   };
 
-  private readonly slotPermitidoParaPosicion: Record<string, SlotId[]> = {
-    Portero:        ['gk'],
-    Defensa:        ['lb', 'lcb', 'rcb', 'rb'],
-    Centrocampista: ['ldm', 'rdm', 'cam', 'lw', 'rw'],
-    Delantero:      ['lw', 'st', 'rw'],
-  };
-
   readonly slotsPorFormacion: Record<FormacionId, SlotId[]> = {
     '442':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'ldm', 'rdm', 'lw', 'rw', 'st', 'cam'],
     '433':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'ldm', 'rdm', 'cam', 'lw', 'st', 'rw'],
@@ -99,11 +92,13 @@ export class AlineacionComponent implements OnInit {
     '532':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'cam', 'ldm', 'rdm', 'lw', 'rw', 'st'],
   };
 
+  // Fuente de verdad única: qué posición acepta cada slot en cada formación
   private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<SlotId, string[]>>> = {
     '442': {
       gk:  ['Portero'],
       lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-      lw:  ['Centrocampista'], ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
+      lw:  ['Centrocampista'], ldm: ['Centrocampista'],
+      rdm: ['Centrocampista'], cam: ['Centrocampista'],
       st:  ['Delantero'], rw: ['Delantero'],
     },
     '433': {
@@ -134,11 +129,29 @@ export class AlineacionComponent implements OnInit {
     },
     '532': {
       gk:  ['Portero'],
-      lb:  ['Defensa'], lcb: ['Defensa'], cam: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      lb:  ['Defensa'], lcb: ['Defensa'], cam: ['Defensa'],
+      rcb: ['Defensa'], rb: ['Defensa'],
       ldm: ['Centrocampista'], lw: ['Centrocampista'], rdm: ['Centrocampista'],
       st:  ['Delantero'], rw: ['Delantero'],
     },
   };
+
+  // Getter dinámico: slots permitidos para cada posición según formación activa
+  get slotPermitidoParaPosicion(): Record<string, SlotId[]> {
+    const mapa = this.posicionPorSlotEnFormacion[this.formacion];
+    const resultado: Record<string, SlotId[]> = {
+      Portero: [], Defensa: [], Centrocampista: [], Delantero: [],
+    };
+
+    (Object.entries(mapa) as [SlotId, string[]][]).forEach(([slot, posiciones]) => {
+      posiciones.forEach(pos => {
+        if (!resultado[pos]) resultado[pos] = [];
+        resultado[pos].push(slot);
+      });
+    });
+
+    return resultado;
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -404,6 +417,7 @@ export class AlineacionComponent implements OnInit {
 
     const jugador = this.jugadorSeleccionado;
 
+    // Usa el getter dinámico según formación activa
     const permitidos = this.slotPermitidoParaPosicion[jugador.posicion] ?? [];
     if (!permitidos.includes(slot)) {
       this.mostrarAviso(`${jugador.posicion} no puede colocarse en esta posición`, 'error');
