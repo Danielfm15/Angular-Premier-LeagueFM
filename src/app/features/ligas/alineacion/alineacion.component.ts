@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -56,7 +56,6 @@ export class AlineacionComponent implements OnInit {
 
   jugadores: JugadorAlineacion[] = [];
 
-  // Filtros
   filtroNombre    = '';
   filtroPosicion  = '';
   filtroEquipo    = '';
@@ -91,7 +90,6 @@ export class AlineacionComponent implements OnInit {
     Delantero:      ['lw', 'st', 'rw'],
   };
 
-  // Slots activos según formación (los que se muestran en el campo)
   readonly slotsPorFormacion: Record<FormacionId, SlotId[]> = {
     '442':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'ldm', 'rdm', 'lw', 'rw', 'st', 'cam'],
     '433':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'ldm', 'rdm', 'cam', 'lw', 'st', 'rw'],
@@ -101,53 +99,53 @@ export class AlineacionComponent implements OnInit {
     '532':  ['gk', 'lb', 'lcb', 'rcb', 'rb', 'cam', 'ldm', 'rdm', 'lw', 'rw', 'st'],
   };
 
-  // Qué tipo de jugador acepta cada slot según la formación
-private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<SlotId, string[]>>> = {
-  '442': {
-    gk:  ['Portero'],
-    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-    lw:  ['Centrocampista'], ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
-    st:  ['Delantero'], rw: ['Delantero'],
-  },
-  '433': {
-    gk:  ['Portero'],
-    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-    ldm: ['Centrocampista'], cam: ['Centrocampista'], rdm: ['Centrocampista'],
-    lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
-  },
-  '4213': {
-    gk:  ['Portero'],
-    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-    ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
-    lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
-  },
-  '4231': {
-    gk:  ['Portero'],
-    lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-    ldm: ['Centrocampista'], rdm: ['Centrocampista'],
-    lw:  ['Centrocampista'], cam: ['Centrocampista'], rw: ['Centrocampista'],
-    st:  ['Delantero'],
-  },
-  '352': {
-    gk:  ['Portero'],
-    lcb: ['Defensa'], lb: ['Defensa'], rcb: ['Defensa'],
-    lw:  ['Centrocampista'], ldm: ['Centrocampista'], cam: ['Centrocampista'],
-    rdm: ['Centrocampista'], rw: ['Centrocampista'],
-    st:  ['Delantero'], rb: ['Delantero'],
-  },
-  '532': {
-    gk:  ['Portero'],
-    lb:  ['Defensa'], lcb: ['Defensa'], cam: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
-    ldm: ['Centrocampista'], lw: ['Centrocampista'], rdm: ['Centrocampista'],
-    st:  ['Delantero'], rw: ['Delantero'],
-  },
-};
+  private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<SlotId, string[]>>> = {
+    '442': {
+      gk:  ['Portero'],
+      lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      lw:  ['Centrocampista'], ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
+      st:  ['Delantero'], rw: ['Delantero'],
+    },
+    '433': {
+      gk:  ['Portero'],
+      lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      ldm: ['Centrocampista'], cam: ['Centrocampista'], rdm: ['Centrocampista'],
+      lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
+    },
+    '4213': {
+      gk:  ['Portero'],
+      lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      ldm: ['Centrocampista'], rdm: ['Centrocampista'], cam: ['Centrocampista'],
+      lw:  ['Delantero'], st: ['Delantero'], rw: ['Delantero'],
+    },
+    '4231': {
+      gk:  ['Portero'],
+      lb:  ['Defensa'], lcb: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      ldm: ['Centrocampista'], rdm: ['Centrocampista'],
+      lw:  ['Centrocampista'], cam: ['Centrocampista'], rw: ['Centrocampista'],
+      st:  ['Delantero'],
+    },
+    '352': {
+      gk:  ['Portero'],
+      lcb: ['Defensa'], lb: ['Defensa'], rcb: ['Defensa'],
+      lw:  ['Centrocampista'], ldm: ['Centrocampista'], cam: ['Centrocampista'],
+      rdm: ['Centrocampista'], rw: ['Centrocampista'],
+      st:  ['Delantero'], rb: ['Delantero'],
+    },
+    '532': {
+      gk:  ['Portero'],
+      lb:  ['Defensa'], lcb: ['Defensa'], cam: ['Defensa'], rcb: ['Defensa'], rb: ['Defensa'],
+      ldm: ['Centrocampista'], lw: ['Centrocampista'], rdm: ['Centrocampista'],
+      st:  ['Delantero'], rw: ['Delantero'],
+    },
+  };
 
   constructor(
     private route: ActivatedRoute,
     private alineacionService: AlineacionService,
     private authService: AuthService,
     private ligasService: LigasService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -155,11 +153,15 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
     const user = this.authService.getCurrentUser();
     if (!user) return;
     this.usuarioId = user.id_usuario;
-     // Cargar nombre de la liga
-  this.ligasService.obtenerClasificacionLiga(this.idLiga).subscribe({
-    next: res => this.nombreLiga = res.nombre_liga,
-    error: err => console.error('Error cargando nombre de liga', err),
-  });
+
+    this.ligasService.obtenerClasificacionLiga(this.idLiga).subscribe({
+      next: res => {
+        this.nombreLiga = res.nombre_liga;
+        this.cdr.detectChanges();
+      },
+      error: err => console.error('Error cargando nombre de liga', err),
+    });
+
     this.inicializar();
   }
 
@@ -219,18 +221,18 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
   }
 
   get jugadoresFiltrados(): JugadorAlineacion[] {
-    const nombre   = this.filtroNombre.trim().toLowerCase();
-    const pos      = this.filtroPosicion;
-    const equipo   = this.filtroEquipo.trim().toLowerCase();
+    const nombre    = this.filtroNombre.trim().toLowerCase();
+    const pos       = this.filtroPosicion;
+    const equipo    = this.filtroEquipo.trim().toLowerCase();
     const puntosMin = Number(this.filtroPuntosMin) || 0;
     const idsEnCampo = this.idsJugadoresEnCampo;
 
     return this.jugadores.filter(j => {
-      const okNombre  = !nombre   || j.nombre.toLowerCase().includes(nombre);
-      const okPos     = !pos      || j.posicion === pos;
-      const okEquipo  = !equipo   || (j.equipo ?? '').toLowerCase().includes(equipo);
-      const okPuntos  = j.puntos >= puntosMin;
-      const okDisp    = !idsEnCampo.has(String(j.id_jugador));
+      const okNombre = !nombre  || j.nombre.toLowerCase().includes(nombre);
+      const okPos    = !pos     || j.posicion === pos;
+      const okEquipo = !equipo  || (j.equipo ?? '').toLowerCase().includes(equipo);
+      const okPuntos = j.puntos >= puntosMin;
+      const okDisp   = !idsEnCampo.has(String(j.id_jugador));
       return okNombre && okPos && okEquipo && okPuntos && okDisp;
     });
   }
@@ -258,11 +260,13 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
       next: res => {
         this.jornadaEditable = res.jornadaEditable;
         this.verificarPermisosYCargarJugadores();
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error('Error obteniendo jornada editable', err);
         this.jornadaEditable = null;
         this.verificarPermisosYCargarJugadores();
+        this.cdr.detectChanges();
       },
     });
   }
@@ -272,11 +276,13 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
       next: perm => {
         this.puedeEditar = perm.edicionHabilitada;
         this.cargarJugadores();
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error('Error verificando permisos', err);
         this.puedeEditar = true;
         this.cargarJugadores();
+        this.cdr.detectChanges();
       },
     });
   }
@@ -291,10 +297,12 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
         }));
         this.paginaActual = 1;
         this.cargarAlineacionGuardada();
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error('Error cargando jugadores', err);
         this.loading = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -302,6 +310,7 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
   private cargarAlineacionGuardada(): void {
     if (!this.jornadaEditable) {
       this.loading = false;
+      this.cdr.detectChanges();
       return;
     }
 
@@ -311,6 +320,7 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
         next: (items: AlineacionItemBackend[]) => {
           if (items.length === 0) {
             this.loading = false;
+            this.cdr.detectChanges();
             return;
           }
           items.forEach(item => {
@@ -321,10 +331,12 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
           });
           this.snapshotGuardado = this.tomarSnapshot();
           this.loading = false;
+          this.cdr.detectChanges();
         },
         error: err => {
           console.error('Error cargando alineación guardada', err);
           this.loading = false;
+          this.cdr.detectChanges();
         },
       });
   }
@@ -427,27 +439,29 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
     const alineacion: GuardarAlineacionItem[] = (Object.keys(this.slots) as SlotId[])
       .filter(slot => this.slots[slot].jugador !== null)
       .map(slot => ({
-        id:      this.slots[slot].jugador!.id_jugador,
+        id:       this.slots[slot].jugador!.id_jugador,
         posicion: slot.toUpperCase(),
-        costo:   this.slots[slot].jugador!.precio,
+        costo:    this.slots[slot].jugador!.precio,
       }));
 
     this.guardando = true;
     this.alineacionService.guardarAlineacion({
       alineacion,
-      usuarioId:  this.usuarioId,
-      jornadaId:  this.jornadaEditable,
-      idLiga:     this.idLiga,
+      usuarioId: this.usuarioId,
+      jornadaId: this.jornadaEditable,
+      idLiga:    this.idLiga,
     }).subscribe({
       next: () => {
         this.guardando = false;
         this.snapshotGuardado = this.tomarSnapshot();
         this.mostrarAviso('Alineación guardada correctamente', 'success');
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error('Error guardando alineación', err);
         this.guardando = false;
         this.mostrarAviso('Error al guardar la alineación', 'error');
+        this.cdr.detectChanges();
       },
     });
   }
@@ -465,12 +479,42 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
         });
         this.snapshotGuardado = null;
         this.mostrarAviso('Alineación eliminada correctamente', 'success');
+        this.cdr.detectChanges();
       },
       error: err => {
         console.error('Error eliminando alineación', err);
         this.mostrarAviso('Error al eliminar la alineación', 'error');
+        this.cdr.detectChanges();
       },
     });
+  }
+
+  // =========================
+  // CAMBIAR FORMACIÓN
+  // =========================
+  cambiarFormacion(nuevaFormacion: FormacionId): void {
+    const mapaNuevo = this.posicionPorSlotEnFormacion[nuevaFormacion];
+    let jugadoresQuitados = 0;
+
+    (Object.keys(this.slots) as SlotId[]).forEach(slot => {
+      const jugador = this.slots[slot].jugador;
+      if (!jugador) return;
+
+      const posicionesPermitidas = mapaNuevo[slot] ?? [];
+      if (!posicionesPermitidas.includes(jugador.posicion)) {
+        this.slots[slot].jugador = null;
+        jugadoresQuitados++;
+      }
+    });
+
+    this.formacion = nuevaFormacion;
+
+    if (jugadoresQuitados > 0) {
+      this.mostrarAviso(
+        `${jugadoresQuitados} jugador${jugadoresQuitados === 1 ? '' : 'es'} retirado${jugadoresQuitados === 1 ? '' : 's'} por cambio de formación`,
+        'error'
+      );
+    }
   }
 
   // =========================
@@ -488,29 +532,4 @@ private readonly posicionPorSlotEnFormacion: Record<FormacionId, Partial<Record<
       this.timeoutAviso = null;
     }, 1500);
   }
-
-  cambiarFormacion(nuevaFormacion: FormacionId): void {
-  const mapaNuevo = this.posicionPorSlotEnFormacion[nuevaFormacion];
-  let jugadoresQuitados = 0;
-
-  (Object.keys(this.slots) as SlotId[]).forEach(slot => {
-    const jugador = this.slots[slot].jugador;
-    if (!jugador) return;
-
-    const posicionesPermitidas = mapaNuevo[slot] ?? [];
-    if (!posicionesPermitidas.includes(jugador.posicion)) {
-      this.slots[slot].jugador = null;
-      jugadoresQuitados++;
-    }
-  });
-
-  this.formacion = nuevaFormacion;
-
-  if (jugadoresQuitados > 0) {
-    this.mostrarAviso(
-      `${jugadoresQuitados} jugador${jugadoresQuitados === 1 ? '' : 'es'} retirado${jugadoresQuitados === 1 ? '' : 's'} por cambio de formación`,
-      'error'
-    );
-  }
-}
 }

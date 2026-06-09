@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,13 +21,12 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
     FormsModule,
     PremierHeaderComponent,
     MainNavComponent,
-    FooterComponent
+    FooterComponent,
   ],
   templateUrl: './ligas.component.html',
   styleUrls: ['./ligas.component.scss'],
 })
 export class LigasComponent implements OnInit {
-
   ligas: Liga[] = [];
   loading = true;
 
@@ -51,9 +50,9 @@ export class LigasComponent implements OnInit {
   constructor(
     private ligasService: LigasService,
     private authService: AuthService,
-    
-  private router: Router
+    private cdr: ChangeDetectorRef,
 
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -69,10 +68,12 @@ export class LigasComponent implements OnInit {
       next: (res) => {
         this.ligas = res.ligas;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al cargar ligas', err);
         this.loading = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -99,20 +100,19 @@ export class LigasComponent implements OnInit {
     const nombreLiga = this.nombreNuevaLiga.trim();
     this.nombreNuevaLiga = '';
 
-    const codigo = Math.random()
-      .toString(36)
-      .substring(2, 8)
-      .toUpperCase();
+    const codigo = Math.random().toString(36).substring(2, 8).toUpperCase();
 
     this.ligasService.crearLiga(nombreLiga, codigo, this.idUsuario).subscribe({
       next: () => {
         this.creandoLiga = false;
         this.mostrarMensajeExito('Liga creada correctamente');
         this.cargarLigas();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al crear la liga', err);
         this.creandoLiga = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -133,7 +133,6 @@ export class LigasComponent implements OnInit {
     const codigo = this.codigoLiga.trim().toUpperCase();
     if (!codigo || this.uniendoseLiga) return;
 
-    // cerramos modal inmediatamente
     this.mostrarModalUnirse = false;
     this.uniendoseLiga = true;
     this.codigoLiga = '';
@@ -142,19 +141,20 @@ export class LigasComponent implements OnInit {
       next: (res: any) => {
         this.uniendoseLiga = false;
 
-        // backend suele devolver exito true/false
         if (res?.exito === false) {
-          // si quieres luego ponemos mensaje de error en UI
           console.warn(res?.mensaje);
+          this.cdr.detectChanges();
           return;
         }
 
         this.mostrarMensajeExito('Te has unido a la liga correctamente');
         this.cargarLigas();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error al unirse a la liga', err);
         this.uniendoseLiga = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -169,13 +169,11 @@ export class LigasComponent implements OnInit {
     }, 2500);
   }
 
+  verClasificacion(idLiga: number): void {
+    this.router.navigate(['/ligas', idLiga, 'clasificacion']);
+  }
 
-verClasificacion(idLiga: number): void {
-  this.router.navigate(['/ligas', idLiga, 'clasificacion']);
-}
-
-
-irAlineacion(idLiga: number): void {
-  this.router.navigate(['/ligas', idLiga, 'alineacion']);
-}
+  irAlineacion(idLiga: number): void {
+    this.router.navigate(['/ligas', idLiga, 'alineacion']);
+  }
 }

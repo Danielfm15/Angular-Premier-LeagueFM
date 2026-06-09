@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -24,7 +24,8 @@ export class ClasificacionLigaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ligasService: LigasService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -40,10 +41,12 @@ export class ClasificacionLigaComponent implements OnInit {
         this.nombreLiga = res.nombre_liga;
         this.clasificacion = res.clasificacion;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err: any) => {
         console.error('Error cargando clasificación de liga', err);
         this.loading = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -52,4 +55,3 @@ export class ClasificacionLigaComponent implements OnInit {
     this.router.navigate(['/ligas', this.idLiga, 'alineacion']);
   }
 }
-``
